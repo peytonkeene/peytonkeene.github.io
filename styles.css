@@ -1,3 +1,4 @@
+/* Body styles */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -5,11 +6,13 @@ body {
     color: #333;
 }
 
+/* Heading styles */
 h2 {
     color: navy;
     margin-bottom: 10px;
 }
 
+/* Form styles */
 form {
     background-color: #ffffff;
     padding: 20px;
@@ -18,11 +21,13 @@ form {
     margin-bottom: 20px;
 }
 
+/* Label and paragraph styles */
 label, p {
     margin: 10px 0 5px;
     display: block;
 }
 
+/* Input styles */
 input[type="text"], select, textarea {
     width: 100%;
     padding: 8px;
@@ -32,10 +37,12 @@ input[type="text"], select, textarea {
     box-sizing: border-box;
 }
 
+/* Checkbox styles */
 input[type="checkbox"] {
     margin-right: 10px;
 }
 
+/* Button styles */
 button {
     background-color: orange;
     color: white;
@@ -50,11 +57,19 @@ button:hover {
     background-color: darkorange;
 }
 
+/* Narrative output box styles */
 #narrativeOutput {
-    background-color: #e2e2e2;
+    background-color: navy;
+    color: white;
     padding: 15px;
     border-radius: 8px;
     border: 1px solid #ccc;
     min-height: 100px;
+    margin-top: 20px;
     white-space: pre-wrap;
+}
+
+/* Adjustments for better visibility */
+form, #narrativeOutput {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
