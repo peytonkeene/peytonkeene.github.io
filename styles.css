@@ -2,22 +2,22 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: #f4f4f9; /* Light bluish-grey background for the page */
+    color: #333; /* Dark grey text color */
 }
 
 /* Heading styles */
 h2 {
-    color: navy;
+    color: navy; /* Navy color for headings */
     margin-bottom: 10px;
 }
 
 /* Form styles */
 form {
-    background-color: #ffffff;
+    background-color: #ffffff; /* White background for forms */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
     margin-bottom: 20px;
 }
 
@@ -32,9 +32,9 @@ input[type="text"], select, textarea {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Light grey border */
     border-radius: 4px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Border and padding included in width */
 }
 
 /* Checkbox styles */
@@ -44,8 +44,8 @@ input[type="checkbox"] {
 
 /* Button styles */
 button {
-    background-color: orange;
-    color: white;
+    background-color: orange; /* Orange background for buttons */
+    color: white; /* White text */
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -54,22 +54,22 @@ button {
 }
 
 button:hover {
-    background-color: darkorange;
+    background-color: darkorange; /* Darker orange on hover */
 }
 
 /* Narrative output box styles */
 #narrativeOutput {
-    background-color: navy;
-    color: white;
+    background-color: #d3d3d3; /* Light grey background for narrative output */
+    color: black; /* Black text for contrast */
     padding: 15px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Light grey border */
     min-height: 100px;
     margin-top: 20px;
-    white-space: pre-wrap;
+    white-space: pre-wrap; /* Preserves spaces and line breaks */
 }
 
-/* Adjustments for better visibility */
+/* Additional visibility adjustments */
 form, #narrativeOutput {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Consistent shadow for depth */
 }
