@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    document.getElementById('painCheck').addEventListener('change', togglePainFields);
-
     // Function to generate the narrative based on the form inputs
     function generateNarrative() {
         const emergenceCare = document.getElementById('emergenceCare').value;
         const responseType = document.getElementById('responseType').value;
         const dispatchDescription = document.getElementById('dispatchDescription').value;
+
+        // Construct the dispatch narrative with HTML tags for the heading
         const dispatchNarrative = `<h2>Dispatch</h2>EC ${emergenceCare} was dispatched and responded ${responseType} to the above address for a: ${dispatchDescription}.`;
 
         const patientPosition = document.getElementById('patientPosition').value;
@@ -23,9 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const orientationLevel = document.getElementById('orientationLevel').value;
         const gcs = document.getElementById('gcs').value;
         const patientAppearance = document.getElementById('patientAppearance').value;
+
+        // Construct the assessment narrative with HTML tags for the heading
+        const assessmentNarrative = `<h2>Assessment</h2>Upon EMS arrival, the patient was found to be ${patientPosition} ${additionalInfo}. The patient is alert and oriented x${orientationLevel}. The patient's GCS is ${gcs}. The patient appears ${patientAppearance}.`;
+
         const chiefComplaint = document.getElementById('chiefComplaint').value;
 
-        const assessmentNarrative = `<h2>Assessment</h2>Upon EMS arrival, the patient was found to be ${patientPosition} ${additionalInfo}. The patient is alert and oriented x${orientationLevel}. The patient's GCS is ${gcs}. The patient appears ${patientAppearance}.`;
+        // Construct the chief complaint narrative without repeating "Chief Complaint:"
         const chiefComplaintNarrative = `<h2>Chief Complaint</h2>${chiefComplaint}`;
 
         let painNarrative = '';
@@ -39,20 +43,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const painDuration = document.getElementById('painDuration').value;
             const painTimeUnit = document.getElementById('painTimeUnit').value;
 
+            // Construct the pain narrative with HTML tags for the heading
             painNarrative = `<h2>Pain</h2>Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
         }
 
+        // Combine all narratives
         const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}`;
         document.getElementById('narrativeOutput').innerHTML = fullNarrative;
     }
 
+    // Function to reset the form and clear narrative
+    function resetForm() {
+        document.getElementById('inputForm').reset();
+        document.getElementById('narrativeOutput').innerHTML = '';
+        document.getElementById('painFields').style.display = 'none';
+        document.getElementById('painCheck').checked = false;
+    }
+
+    // Attach event listeners to elements
+    document.getElementById('painCheck').addEventListener('change', togglePainFields);
     document.getElementById('generateButton').addEventListener('click', generateNarrative);
     document.getElementById('resetButton').addEventListener('click', resetForm);
 });
-
-function resetForm() {
-    document.getElementById('inputForm').reset();
-    document.getElementById('narrativeOutput').innerHTML = '';
-    document.getElementById('painFields').style.display = 'none';
-    document.getElementById('painCheck').checked = false;
-}
