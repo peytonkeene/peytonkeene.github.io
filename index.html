@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Dispatch</h2>
-   <form id="inputForm">
+    <form id="inputForm">
         <label for="emergenceCare">EC (Emergence Care):</label>
         <select id="emergenceCare">
             <option value="1">1</option>
@@ -26,26 +26,23 @@
             <option value="13">13</option>
             <option value="14">14</option>
         </select>
-        
         <label>was dispatched and responded</label>
         <select id="responseType">
             <option value="emergent">emergent</option>
             <option value="nonemergent">nonemergent</option>
         </select>
-
         <label>to the above address for a:</label>
-        <input type="text" id="dispatchDescription" style="width: 300px;"><br>
+        <input type="text" id="dispatchDescription" style="width: 300px;">
 
-    <h2>Assessment</h2>
-    <form id="inputForm">
-        <!-- Existing Dispatch Form Elements -->
+        <h2>Assessment</h2>
         <p>Upon EMS arrival, the patient was found to be 
         <select id="patientPosition">
             <option value="standing">standing</option>
             <option value="sitting">sitting</option>
             <option value="lying">lying</option>
         </select>
-        <input type="text" id="additionalInfo" placeholder="additional details" style="width: 300px;"> The patient is alert and oriented x
+        <input type="text" id="additionalInfo" placeholder="additional details" style="width: 300px;"> 
+        The patient is alert and oriented x
         <select id="orientationLevel">
             <option value="4">4</option>
             <option value="3">3</option>
@@ -55,70 +52,83 @@
         <select id="gcs">
             <option value="15">15</option>
             <option value="14">14</option>
-            <option value="13">13</option>
-            <option value="12">12</option>
-            <option value="11">11</option>
-            <option value="10">10</option>
-            <option value="9">9</option>
-            <option value="8">8</option>
-            <option value="7">7</option>
-            <option value="6">6</option>
-            <option value="5">5</option>
-            <option value="4">4</option>
             <option value="3">3</option>
         </select>. The patient appears 
         <input type="text" id="patientAppearance" placeholder="describe appearance" style="width: 300px;">.</p>
-        
-    <h2>Chief Complaint</h2>
-    <p>In the patient's own words or what the PCS/family/friend/bystander states current issue:</p>
-    <textarea id="chiefComplaint" rows="4" cols="50" placeholder="Enter the chief complaint here..."></textarea>
-    
-    <h2>Pain</h2>
-    <input type="checkbox" id="painCheck" onclick="togglePainInputs()"> Include Pain Assessment<br>
-    <div id="painInputs" style="display: none;">
-        <label for="painOnset">Onset:</label>
-        <select id="painOnset">
-            <option value="gradual">gradual</option>
-            <option value="sudden">sudden</option>
-        </select><br>
 
-        <label for="painProvocation">Provocation:</label>
-        <input type="text" id="painProvocation">
-        makes the pain
-        <select id="painEffect">
-            <option value="better">better</option>
-            <option value="worse">worse</option>
-        </select><br>
+        <h2>Chief Complaint</h2>
+        <p>In the patient's own words or what the PCS/family/friend/bystander states current issue:</p>
+        <textarea id="chiefComplaint" rows="4" cols="50" placeholder="Enter the chief complaint here..."></textarea>
 
-        <label for="painQuality">Quality:</label>
-        <select id="painQuality">
-            <option value="changing">changing</option>
-            <option value="dull">dull</option>
-            <!-- Add other options similarly -->
-        </select><br>
-
-        <label for="painRadiation">Radiation:</label>
-        <select id="painRadiation">
-            <option value="head">head</option>
-            <option value="neck">neck</option>
-            <!-- Add other options similarly -->
-        </select><br>
-
-        <label for="painSeverity">Severity:</label>
-        <select id="painSeverity">
-            <option value="1">1</option>
-            <!-- Add options up to 10 -->
-        </select><br>
-
-        <label for="painTime">Time:</label>
-        <input type="text" id="painTime">
-        <select id="painDuration">
-            <option value="minutes">minutes</option>
-            <option value="hours">hours</option>
-            <!-- Add other options similarly -->
-        </select><br>
-    </div>
-
+        <h2>Pain</h2>
+        <input type="checkbox" id="painCheck" onclick="togglePainFields()"> Check if pain is relevant
+        <div id="painFields" style="display:none;">
+            <p>Onset:
+                <select id="painOnset">
+                    <option value="gradual">Gradual</option>
+                    <option value="sudden">Sudden</option>
+                </select>
+            </p>
+            <p>Provocation:
+                <input type="text" id="provocationWhat" placeholder="What">
+                makes the pain
+                <select id="provocationEffect">
+                    <option value="better">Better</option>
+                    <option value="worse">Worse</option>
+                </select>
+            </p>
+            <p>Quality:
+                <select id="painQuality">
+                    <option value="changing">Changing</option>
+                    <option value="dull">Dull</option>
+                    <option value="pressure">Pressure</option>
+                    <option value="sharp">Sharp</option>
+                    <option value="steady">Steady</option>
+                    <option value="burning">Burning</option>
+                    <option value="aching">Aching</option>
+                    <option value="stabbing">Stabbing</option>
+                    <option value="throbbing">Throbbing</option>
+                    <option value="cramping">Cramping</option>
+                    <option value="other">Other</option>
+                </select>
+            </p>
+            <p>Radiation:
+                <select id="painRadiation">
+                    <option value="head">Head</option>
+                    <option value="neck">Neck</option>
+                    <option value="arm">Arm</option>
+                    <option value="hand">Hand</option>
+                    <option value="chest">Chest</option>
+                    <option value="leg">Leg</option>
+                    <option value="back">Back</option>
+                    <option value="foot">Foot</option>
+                </select>
+            </p>
+            <p>Severity:
+                <select id="painSeverity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </p>
+            <p>Time:
+                <input type="text" id="painDuration" placeholder="Duration">
+                <select id="painTimeUnit">
+                    <option value="minutes">Minutes</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
+                    <option value="months">Months</option>
+                    <option value="years">Years</option>
+                </select>
+            </p>
+        </div>
 
         <button type="button" onclick="generateNarrative()">Generate Narrative</button>
     </form>
