@@ -2,76 +2,59 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to toggle the visibility of the Pain section
     function togglePainFields() {
         var painSection = document.getElementById('painFields');
-        if (painSection) {
-            if (document.getElementById('painCheck').checked) {
-                painSection.style.display = 'block';
-            } else {
-                painSection.style.display = 'none';
-            }
+        if (document.getElementById('painCheck').checked) {
+            painSection.style.display = 'block';
         } else {
-            console.log("Pain section not found.");
+            painSection.style.display = 'none';
         }
     }
+
+    // Ensure the toggle function is called when checkbox state changes
+    document.getElementById('painCheck').addEventListener('change', togglePainFields);
 
     // Function to generate the narrative based on the form inputs
     function generateNarrative() {
-        console.log("Generating narrative...");
-        const emergenceCare = document.getElementById('emergenceCare');
-        const responseType = document.getElementById('responseType');
-        const dispatchDescription = document.getElementById('dispatchDescription');
+        const emergenceCare = document.getElementById('emergenceCare').value;
+        const responseType = document.getElementById('responseType').value;
+        const dispatchDescription = document.getElementById('dispatchDescription').value;
 
-        if (emergenceCare && responseType && dispatchDescription) {
-            const dispatchNarrative = `<h2>Dispatch</h2> EC ${emergenceCare.value} was dispatched and responded ${responseType.value} to the above address for a: ${dispatchDescription.value}.`;
+        // Construct the dispatch narrative with HTML tags for the heading
+        const dispatchNarrative = `<h2>Dispatch</h2>EC ${emergenceCare} was dispatched and responded ${responseType} to the above address for a: ${dispatchDescription}.`;
 
-            const patientPosition = document.getElementById('patientPosition');
-            const additionalInfo = document.getElementById('additionalInfo');
-            const orientationLevel = document.getElementById('orientationLevel');
-            const gcs = document.getElementById('gcs');
-            const patientAppearance = document.getElementById('patientAppearance');
-            const chiefComplaint = document.getElementById('chiefComplaint');
-            const narrativeOutput = document.getElementById('narrativeOutput');
+        const patientPosition = document.getElementById('patientPosition').value;
+        const additionalInfo = document.getElementById('additionalInfo').value;
+        const orientationLevel = document.getElementById('orientationLevel').value;
+        const gcs = document.getElementById('gcs').value;
+        const patientAppearance = document.getElementById('patientAppearance').value;
 
-            if (patientPosition && additionalInfo && orientationLevel && gcs && patientAppearance && chiefComplaint && narrativeOutput) {
-                const assessmentNarrative = `<h2>Assessment</h2> Upon EMS arrival, the patient was found to be ${patientPosition.value} ${additionalInfo.value}. The patient is alert and oriented x${orientationLevel.value}. The patient's GCS is ${gcs.value}. The patient appears ${patientAppearance.value}.`;
-                const chiefComplaintNarrative = `<h2>Chief Complaint</h2> Chief Complaint: ${chiefComplaint.value}`;
-                
-                let painNarrative = '';
-                if (document.getElementById('painCheck').checked) {
-                    const painOnset = document.getElementById('painOnset').value;
-                    const provocationWhat = document.getElementById('provocationWhat').value;
-                    const provocationEffect = document.getElementById('provocationEffect').value;
-                    const painQuality = document.getElementById('painQuality').value;
-                    const painRadiation = document.getElementById('painRadiation').value;
-                    const painSeverity = document.getElementById('painSeverity').value;
-                    const painDuration = document.getElementById('painDuration').value;
-                    const painTimeUnit = document.getElementById('painTimeUnit').value;
+        // Construct the assessment narrative with HTML tags for the heading
+        const assessmentNarrative = `<h2>Assessment</h2>Upon EMS arrival, the patient was found to be ${patientPosition} ${additionalInfo}. The patient is alert and oriented x${orientationLevel}. The patient's GCS is ${gcs}. The patient appears ${patientAppearance}.`;
 
-                    painNarrative = `<h2>Pain</h2> Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
-                }
+        const chiefComplaint = document.getElementById('chiefComplaint').value;
 
-                // Combine narratives
-                const fullNarrative = `${dispatchNarrative} ${assessmentNarrative} ${chiefComplaintNarrative} ${painNarrative}`;
-                narrativeOutput.innerHTML = fullNarrative;
-            } else {
-                console.log("One or more assessment elements are missing.");
-            }
-        } else {
-            console.log("One or more dispatch elements are missing.");
+        // Construct the chief complaint narrative without repeating "Chief Complaint:"
+        const chiefComplaintNarrative = `<h2>Chief Complaint</h2>${chiefComplaint}`;
+
+        let painNarrative = '';
+        if (document.getElementById('painCheck').checked) {
+            const painOnset = document.getElementById('painOnset').value;
+            const provocationWhat = document.getElementById('provocationWhat').value;
+            const provocationEffect = document.getElementById('provocationEffect').value;
+            const painQuality = document.getElementById('painQuality').value;
+            const painRadiation = document.getElementById('painRadiation').value;
+            const painSeverity = document.getElementById('painSeverity').value;
+            const painDuration = document.getElementById('painDuration').value;
+            const painTimeUnit = document.getElementById('painTimeUnit').value;
+
+            // Construct the pain narrative with HTML tags for the heading
+            painNarrative = `<h2>Pain</h2>Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
         }
+
+        // Combine all narratives
+        const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}`;
+        document.getElementById('narrativeOutput').innerHTML = fullNarrative;
     }
 
-    // Attach event listeners
-    var painCheck = document.getElementById('painCheck');
-    if (painCheck) {
-        painCheck.addEventListener('change', togglePainFields);
-    } else {
-        console.log("Pain check checkbox not found.");
-    }
-
-    var generateButton = document.getElementById('generateButton');
-    if (generateButton) {
-        generateButton.addEventListener('click', generateNarrative);
-    } else {
-        console.log("Generate button not found.");
-    }
+    // Add event listener to the generate button
+    document.getElementById('generateButton').addEventListener('click', generateNarrative);
 });
