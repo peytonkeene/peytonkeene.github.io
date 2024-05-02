@@ -8,7 +8,23 @@ function togglePainFields() {
 }
 
 function generateNarrative() {
-    // Existing narrative generation code
+    // Dispatch section
+    const emergenceCare = document.getElementById('emergenceCare').value;
+    const responseType = document.getElementById('responseType').value;
+    const dispatchDescription = document.getElementById('dispatchDescription').value;
+    const dispatchNarrative = `EC ${emergenceCare} was dispatched and responded ${responseType} to the above address for a: ${dispatchDescription}.`;
+
+    // Assessment section
+    const patientPosition = document.getElementById('patientPosition').value;
+    const additionalInfo = document.getElementById('additionalInfo').value;
+    const orientationLevel = document.getElementById('orientationLevel').value;
+    const gcs = document.getElementById('gcs').value;
+    const patientAppearance = document.getElementById('patientAppearance').value;
+    const assessmentNarrative = `Upon EMS arrival, the patient was found to be ${patientPosition} ${additionalInfo}. The patient is alert and oriented x${orientationLevel}. The patient's GCS is ${gcs}. The patient appears ${patientAppearance}.`;
+
+    // Chief Complaint section
+    const chiefComplaint = document.getElementById('chiefComplaint').value;
+    const chiefComplaintNarrative = `Chief Complaint: ${chiefComplaint}`;
 
     // Pain section
     var painNarrative = '';
@@ -30,3 +46,7 @@ function generateNarrative() {
 
     document.getElementById('narrativeOutput').textContent = fullNarrative;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('painCheck').addEventListener('change', togglePainFields);
+});
