@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dispatchDescription = document.getElementById('dispatchDescription');
 
         if (emergenceCare && responseType && dispatchDescription) {
-            const dispatchNarrative = `EC ${emergenceCare.value} was dispatched and responded ${responseType.value} to the above address for a: ${dispatchDescription.value}.`;
-            console.log("Dispatch narrative: " + dispatchNarrative); // Debug output to console
+            const dispatchNarrative = `<h2>Dispatch</h2> EC ${emergenceCare.value} was dispatched and responded ${responseType.value} to the above address for a: ${dispatchDescription.value}.`;
 
             const patientPosition = document.getElementById('patientPosition');
             const additionalInfo = document.getElementById('additionalInfo');
@@ -33,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const narrativeOutput = document.getElementById('narrativeOutput');
 
             if (patientPosition && additionalInfo && orientationLevel && gcs && patientAppearance && chiefComplaint && narrativeOutput) {
-                const assessmentNarrative = `Upon EMS arrival, the patient was found to be ${patientPosition.value} ${additionalInfo.value}. The patient is alert and oriented x${orientationLevel.value}. The patient's GCS is ${gcs.value}. The patient appears ${patientAppearance.value}.`;
-                const chiefComplaintNarrative = `Chief Complaint: ${chiefComplaint.value}`;
+                const assessmentNarrative = `<h2>Assessment</h2> Upon EMS arrival, the patient was found to be ${patientPosition.value} ${additionalInfo.value}. The patient is alert and oriented x${orientationLevel.value}. The patient's GCS is ${gcs.value}. The patient appears ${patientAppearance.value}.`;
+                const chiefComplaintNarrative = `<h2>Chief Complaint</h2> Chief Complaint: ${chiefComplaint.value}`;
                 
                 let painNarrative = '';
                 if (document.getElementById('painCheck').checked) {
@@ -47,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     const painDuration = document.getElementById('painDuration').value;
                     const painTimeUnit = document.getElementById('painTimeUnit').value;
 
-                    painNarrative = `Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
+                    painNarrative = `<h2>Pain</h2> Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
                 }
 
                 // Combine narratives
                 const fullNarrative = `${dispatchNarrative} ${assessmentNarrative} ${chiefComplaintNarrative} ${painNarrative}`;
-                narrativeOutput.textContent = fullNarrative;
+                narrativeOutput.innerHTML = fullNarrative;
             } else {
                 console.log("One or more assessment elements are missing.");
             }
