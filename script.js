@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Function to toggle the visibility of the Pain section
     function togglePainFields() {
         var painSection = document.getElementById('painFields');
         if (document.getElementById('painCheck').checked) {
@@ -8,6 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Attach the toggle function to the checkbox change event
+    document.getElementById('painCheck').addEventListener('change', togglePainFields);
+
+    // Function to generate the narrative based on the form inputs
     function generateNarrative() {
         // Dispatch section
         const emergenceCare = document.getElementById('emergenceCare').value;
@@ -27,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const chiefComplaint = document.getElementById('chiefComplaint').value;
         const chiefComplaintNarrative = `Chief Complaint: ${chiefComplaint}`;
 
-        // Pain section
+        // Pain section (conditional based on checkbox)
         var painNarrative = '';
         if (document.getElementById('painCheck').checked) {
             const painOnset = document.getElementById('painOnset').value;
@@ -45,10 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // Combine narratives
         const fullNarrative = `${dispatchNarrative} ${assessmentNarrative} ${chiefComplaintNarrative} ${painNarrative}`;
 
+        // Display the combined narrative in the output div
         document.getElementById('narrativeOutput').textContent = fullNarrative;
     }
 
-    // Set up event listeners
-    document.getElementById('painCheck').addEventListener('change', togglePainFields);
-    document.getElementById('generateButton').addEventListener('click', generateNarrative);
+    // Attach the generateNarrative function to the button click event
+    document.getElementById('inputForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent form submission to server
+        generateNarrative();
+    });
 });
