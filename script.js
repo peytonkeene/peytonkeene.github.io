@@ -55,8 +55,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Attach the generateNarrative function to the button click event
-    document.getElementById('inputForm').addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent form submission to server
-        generateNarrative();
-    });
+    document.getElementById('generateButton').addEventListener('click', generateNarrative);
 });
