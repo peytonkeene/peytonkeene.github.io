@@ -1,4 +1,4 @@
-/* Body styles */
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -6,13 +6,13 @@ body {
     color: #333; /* Dark grey text color */
 }
 
-/* Heading styles */
-h2 {
-    color: navy; /* Navy color for headings */
+/* Styling for all section headers */
+h1, h2 {
+    color: navy;
     margin-bottom: 10px;
 }
 
-/* Form styles */
+/* Form styling */
 form {
     background-color: #ffffff; /* White background for forms */
     padding: 20px;
@@ -21,14 +21,14 @@ form {
     margin-bottom: 20px;
 }
 
-/* Label and paragraph styles */
+/* Styling for labels and paragraphs within the form */
 label, p {
     margin: 10px 0 5px;
     display: block;
 }
 
-/* Input styles */
-input[type="text"], select, textarea {
+/* Input and select element styling */
+input[type="text"], input[type="checkbox"], select, textarea {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -37,12 +37,13 @@ input[type="text"], select, textarea {
     box-sizing: border-box; /* Border and padding included in width */
 }
 
-/* Checkbox styles */
+/* Checkbox specific styling to not stretch across full width */
 input[type="checkbox"] {
+    width: auto;
     margin-right: 10px;
 }
 
-/* Button styles */
+/* Button styling for form actions */
 button {
     background-color: orange; /* Orange background for buttons */
     color: white; /* White text */
@@ -51,13 +52,15 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 10px; /* Space above the buttons */
 }
 
+/* Hover effect for buttons to indicate interactivity */
 button:hover {
     background-color: darkorange; /* Darker orange on hover */
 }
 
-/* Narrative output box styles */
+/* Specific styling for the narrative output area */
 #narrativeOutput {
     background-color: #d3d3d3; /* Light grey background for narrative output */
     color: black; /* Black text for contrast */
@@ -67,6 +70,11 @@ button:hover {
     min-height: 100px;
     margin-top: 20px;
     white-space: pre-wrap; /* Preserves spaces and line breaks */
+}
+
+/* Style to ensure hidden sections take no space */
+#painFields {
+    display: none; /* Ensures the section does not take up space when hidden */
 }
 
 /* Additional visibility adjustments */
