@@ -42,7 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
             painNarrative = `<h2>Pain</h2>Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
         }
 
-        const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}`;
+        const historyDetails = document.getElementById('historyDetails').value;
+        const historyNarrative = `<h2>History</h2>The patient's past medical history, medications, and allergies are noted in the patient demographic tab: ${historyDetails}`;
+
+        const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}<br>${historyNarrative}`;
         document.getElementById('narrativeOutput').innerHTML = fullNarrative;
     }
 
