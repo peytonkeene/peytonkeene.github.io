@@ -57,6 +57,7 @@ input[type="checkbox"] {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     box-sizing: border-box;
+    margin-bottom: 20px; /* Add margin to match form sections */
 }
 
 /* Button styles */
