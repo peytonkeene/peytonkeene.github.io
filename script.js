@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach event listener to the Pain checkbox
     document.getElementById('painCheck').addEventListener('change', togglePainFields);
+    togglePainFields(); // Call to set initial visibility based on checkbox status
 
     // Function to generate the narrative based on the form inputs
     function generateNarrative() {
@@ -59,8 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetForm() {
         document.getElementById('inputForm').reset();
         document.getElementById('narrativeOutput').innerHTML = '';
-        document.getElementById('painFields').style.display = 'none';  // Ensure pain fields are hidden on reset
-        document.getElementById('painCheck').checked = false;
+        togglePainFields();  // Reset pain section visibility
     }
 
     // Attach event listener to the Reset button
