@@ -42,11 +42,40 @@
         <!-- Arrival Section -->
         <section>
             <h2>Arrival</h2>
-            <input type="text" id="patientPosition" placeholder="Patient position">
-            <input type="text" id="additionalInfo" placeholder="Additional info">
-            <input type="text" id="orientationLevel" placeholder="Orientation level">
-            <input type="text" id="gcs" placeholder="GCS">
-            <input type="text" id="patientAppearance" placeholder="Patient appearance">
+            <label>Patient Position:</label>
+            <select id="patientPosition">
+                <option value="standing">Standing</option>
+                <option value="sitting">Sitting</option>
+                <option value="lying">Lying</option>
+            </select>
+            <label>Orientation Level:</label>
+            <select id="orientationLevel">
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+            </select>
+            <label>GCS:</label>
+            <select id="gcs">
+                <option value="15">15</option>
+                <option value="14">14</option>
+                <option value="13">13</option>
+                <option value="12">12</option>
+                <option value="11">11</option>
+                <option value="10">10</option>
+                <option value="9">9</option>
+                <option value="8">8</option>
+                <option value="7">7</option>
+                <option value="6">6</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+            </select>
+            <label>Patient Appearance:</label>
+            <select id="patientAppearance">
+                <option value="in obvious distress">In Obvious Distress</option>
+                <option value="in no obvious distress">In No Obvious Distress</option>
+            </select>
         </section>
 
         <!-- Chief Complaint Section -->
@@ -60,17 +89,65 @@
             <h2>Pain</h2>
             <input type="checkbox" id="painCheck" onchange="togglePainFields()"> Check if pain is relevant
             <div id="painFields" style="display:none;">
-                <input type="text" id="painOnset" placeholder="Pain onset">
+                <label>Pain Onset:</label>
+                <select id="painOnset">
+                    <option value="gradual">Gradual</option>
+                    <option value="sudden">Sudden</option>
+                </select>
+                <label>Provocation:</label>
                 <input type="text" id="provocationWhat" placeholder="What provokes pain">
-                <input type="text" id="provocationEffect" placeholder="Effect of provocation">
-                <input type="text" id="painQuality" placeholder="Pain quality">
-                <input type="text" id="painRadiation" placeholder="Pain radiation">
-                <input type="text" id="painSeverity" placeholder="Pain severity">
+                <label>Effect of Provocation:</label>
+                <select id="provocationEffect">
+                    <option value="better">Better</option>
+                    <option value="worse">Worse</option>
+                </select>
+                <label>Pain Quality:</label>
+                <select id="painQuality">
+                    <option value="changing">Changing</option>
+                    <option value="dull">Dull</option>
+                    <option value="pressure">Pressure</option>
+                    <option value="sharp">Sharp</option>
+                    <option value="steady">Steady</option>
+                    <option value="burning">Burning</option>
+                    <option value="aching">Aching</option>
+                    <option value="stabbing">Stabbing</option>
+                    <option value="throbbing">Throbbing</option>
+                    <option value="cramping">Cramping</option>
+                    <option value="other">Other</option>
+                </select>
+                <label>Pain Radiation:</label>
+                <select id="painRadiation">
+                    <option value="head">Head</option>
+                    <option value="neck">Neck</option>
+                    <option value="arm">Arm</option>
+                    <option value="hand">Hand</option>
+                    <option value="chest">Chest</option>
+                    <option value="leg">Leg</option>
+                    <option value="back">Back</option>
+                    <option value="foot">Foot</option>
+                </select>
+                <label>Pain Severity:</label>
+                <select id="painSeverity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <label>Pain Duration:</label>
                 <input type="text" id="painDuration" placeholder="Pain duration">
-                <input type="text" id="painTimeUnit" placeholder="Time unit of pain">
+                <label>Time Unit of Pain:</label>
+                <select id="painTimeUnit">
+                    <option value="minutes">Minutes</option>
+                    <option value="hours">Hours</option>
+                </select>
             </div>
         </section>
-
         <!-- History Section -->
         <section>
             <h2>History</h2>
@@ -117,16 +194,19 @@
                 <input type="checkbox" id="skinCold" name="skinCondition" value="cold">Cold
                 <input type="checkbox" id="skinHot" name="skinCondition" value="hot">Hot
                 <input type="checkbox" id="skinMottled" name="skinCondition" value="mottled">Mottled
-                <input type="checkbox" id="skinPooledLividity" name="skinCondition" value="noted with pooled lividity">Noted with pooled lividity
+                <input type="checkbox" id="skinLividity" name="skinCondition" value="lividity">Noted with Pooled Lividity
             </p>
 
-            <button type="button" id="generateButton" onclick="generateNarrative()">Generate Narrative</button>
-            <button type="button" id="resetButton" onclick="resetForm()">Reset</button>
-            <button type="button" id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+            <button type="button" id="generateButton">Generate Narrative</button>
+            <button type="button" id="resetButton">Reset</button>
+            <button type="button" id="copyButton">Copy to Clipboard</button>
         </section>
     </form>
 
-    <div id="narrativeOutput"></div>
+    <div id="narrativeBox">
+        <h2>Generated Narrative</h2>
+        <textarea id="narrative" rows="10" cols="80" readonly></textarea>
+    </div>
 
     <script src="script.js"></script>
 </body>
