@@ -7,190 +7,124 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Dispatch</h2>
+    <h1>EMS Narrative Generator</h1>
+
     <form id="inputForm">
-        <label for="emergenceCare">EC:</label>
-        <select id="emergenceCare">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-        </select>
-        <label>was dispatched and responded</label>
-        <select id="responseType">
-            <option value="emergent">emergent</option>
-            <option value="nonemergent">nonemergent</option>
-        </select>
-        <label>to the above address for a(n):</label>
-        <input type="text" id="dispatchDescription" style="width: 300px;">
+        <!-- Dispatch Section -->
+        <section>
+            <h2>Dispatch</h2>
+            <label>Emergence Care (EC):</label>
+            <select id="emergenceCare">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+            </select>
+            <label>Response Type:</label>
+            <select id="responseType">
+                <option value="emergent">Emergent</option>
+                <option value="nonemergent">Non-Emergent</option>
+            </select>
+            <label>Dispatch Description:</label>
+            <input type="text" id="dispatchDescription" placeholder="Describe the dispatch...">
+        </section>
 
-        <h2>Arrival</h2>
-        <p>Upon EMS arrival, the patient was found to be 
-        <select id="patientPosition">
-            <option value="standing">standing</option>
-            <option value="sitting">sitting</option>
-            <option value="lying">lying</option>
-        </select>
-        <input type="text" id="additionalInfo" placeholder="additional details" style="width: 300px;"> 
-        The patient is alert and oriented x 
-        <select id="orientationLevel">
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-            <option value="0">0</option>
-        </select>. The patient's GCS is
-        <select id="gcs">
-            <option value="15">15</option>
-            <option value="14">14</option>
-            <option value="13">13</option>
-            <option value="12">12</option>
-            <option value="11">11</option>
-            <option value="10">10</option>
-            <option value="9">9</option>
-            <option value="8">8</option>
-            <option value="7">7</option>
-            <option value="6">6</option>
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            
-        </select>. The patient appears 
-        <input type="text" id="patientAppearance" placeholder="describe appearance" style="width: 300px;">.</p>
+        <!-- Arrival Section -->
+        <section>
+            <h2>Arrival</h2>
+            <input type="text" id="patientPosition" placeholder="Patient position">
+            <input type="text" id="additionalInfo" placeholder="Additional info">
+            <input type="text" id="orientationLevel" placeholder="Orientation level">
+            <input type="text" id="gcs" placeholder="GCS">
+            <input type="text" id="patientAppearance" placeholder="Patient appearance">
+        </section>
 
-        <h2>Chief Complaint</h2>
-        <p>In the patient's own words or what the PCS/family/friend/bystander states current issue:</p>
-        <textarea id="chiefComplaint" rows="4" cols="50" placeholder="Enter the chief complaint here..."></textarea>
+        <!-- Chief Complaint Section -->
+        <section>
+            <h2>Chief Complaint</h2>
+            <textarea id="chiefComplaint" rows="4" cols="50" placeholder="Chief complaint..."></textarea>
+        </section>
 
-        <h2>Pain</h2>
-        <input type="checkbox" id="painCheck" onclick="togglePainFields()"> Check if pain is relevant
-        <div id="painFields" style="display:none;">
-            <p>Onset:
-                <select id="painOnset">
-                    <option value="gradual">Gradual</option>
-                    <option value="sudden">Sudden</option>
-                </select>
-            </p>
-            <p>Provocation:
-                <input type="text" id="provocationWhat" placeholder="What">
-                makes the pain
-                <select id="provocationEffect">
-                    <option value="better">Better</option>
-                    <option value="worse">Worse</option>
-                </select>
-            </p>
-            <p>Quality:
-                <select id="painQuality">
-                    <option value="changing">Changing</option>
-                    <option value="dull">Dull</option>
-                    <option value="pressure">Pressure</option>
-                    <option value="sharp">Sharp</option>
-                    <option value="steady">Steady</option>
-                    <option value="burning">Burning</option>
-                    <option value="aching">Aching</option>
-                    <option value="stabbing">Stabbing</option>
-                    <option value="throbbing">Throbbing</option>
-                    <option value="cramping">Cramping</option>
-                    <option value="other">Other</option>
-                </select>
-            </p>
-            <p>Radiation:
-                <select id="painRadiation">
-                    <option value="none">None</option>
-                    <option value="head">Head</option>
-                    <option value="neck">Neck</option>
-                    <option value="arm">Arm</option>
-                    <option value="hand">Hand</option>
-                    <option value="chest">Chest</option>
-                    <option value="leg">Leg</option>
-                    <option value="back">Back</option>
-                    <option value="foot">Foot</option>
-                    
-                </select>
-            </p>
-            <p>Severity:
-                <select id="painSeverity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </p>
-            <p>Time:
-                <input type="text" id="painDuration" placeholder="Duration">
-                <select id="painTimeUnit">
-                    <option value="minutes">Minutes</option>
-                    <option value="hours">Hours</option>
-                    <option value="days">Days</option>
-                    <option value="weeks">Weeks</option>
-                    <option value="months">Months</option>
-                    <option value="years">Years</option>
-                </select>
-            </p>
+        <!-- Pain Section -->
+        <section>
+            <h2>Pain</h2>
+            <input type="checkbox" id="painCheck" onchange="togglePainFields()"> Check if pain is relevant
+            <div id="painFields" style="display:none;">
+                <input type="text" id="painOnset" placeholder="Pain onset">
+                <input type="text" id="provocationWhat" placeholder="What provokes pain">
+                <input type="text" id="provocationEffect" placeholder="Effect of provocation">
+                <input type="text" id="painQuality" placeholder="Pain quality">
+                <input type="text" id="painRadiation" placeholder="Pain radiation">
+                <input type="text" id="painSeverity" placeholder="Pain severity">
+                <input type="text" id="painDuration" placeholder="Pain duration">
+                <input type="text" id="painTimeUnit" placeholder="Time unit of pain">
+            </div>
+        </section>
 
+        <!-- History Section -->
+        <section>
             <h2>History</h2>
-    <textarea id="historyDetails" rows="4" cols="50" placeholder="History details..."></textarea>
+            <textarea id="historyDetails" rows="4" cols="50" placeholder="History details..."></textarea>
+        </section>
 
-    <h2>Assessment</h2>
-    <p>Please see the assessment tab for any additional details. The patient is
-    <select id="patientOrientation">
-        <option value="alert and oriented to person, place, time, and event">alert and oriented to person, place, time, and event</option>
-        <option value="alert but disoriented">alert but disoriented</option>
-        <option value="arousable to verbal stimulus">arousable to verbal stimulus</option>
-        <option value="arousable to painful stimulus">arousable to painful stimulus</option>
-        <option value="unresponsive to any stimulus">unresponsive to any stimulus</option>
-    </select>.</p>
+        <!-- Assessment Section -->
+        <section>
+            <h2>Assessment</h2>
+            <p>Please see the assessment tab for additional details. The patient is
+            <select id="patientOrientation">
+                <option value="alert and oriented to person, place, time, and event">alert and oriented to person, place, time, and event</option>
+                <option value="alert but disoriented">alert but disoriented</option>
+                <option value="arousable to verbal stimulus">arousable to verbal stimulus</option>
+                <option value="arousable to painful stimulus">arousable to painful stimulus</option>
+                <option value="unresponsive to any stimulus">unresponsive to any stimulus</option>
+            </select>.</p>
 
-    <p>The patient's airway is
-    <select id="patientAirway">
-        <option value="open and maintained without concern for compromise">open and maintained without concern for compromise</option>
-        <option value="not open and compromised which required intervention">not open and compromised which required intervention</option>
-    </select>.</p>
+            <p>The patient's airway is
+            <select id="patientAirway">
+                <option value="open and maintained without concern for compromise">open and maintained without concern for compromise</option>
+                <option value="not open and compromised which required intervention">not open and compromised which required intervention</option>
+            </select>.</p>
 
-    <p>The patient's breathing is
-    <select id="patientBreathing">
-        <option value="spontaneous, non-labored, with regular depth and rate">spontaneous, non-labored, with regular depth and rate</option>
-        <option value="abnormal and not adequate for perfusion">abnormal and not adequate for perfusion</option>
-    </select>.</p>
+            <p>The patient's breathing is
+            <select id="patientBreathing">
+                <option value="spontaneous, non-labored, with regular depth and rate">spontaneous, non-labored, with regular depth and rate</option>
+                <option value="abnormal and not adequate for perfusion">abnormal and not adequate for perfusion</option>
+            </select>.</p>
 
-    <p>The patient's circulation is
-    <select id="patientCirculation">
-        <option value="is normal with an adequate rate and quality">is normal with an adequate rate and quality</option>
-        <option value="critical requiring intervention">critical requiring intervention</option>
-    </select>.</p>
+            <p>The patient's circulation is
+            <select id="patientCirculation">
+                <option value="is normal with an adequate rate and quality">is normal with an adequate rate and quality</option>
+                <option value="critical requiring intervention">critical requiring intervention</option>
+            </select>.</p>
 
-    <p>The patient's skin is:
-        <input type="checkbox" id="skinWarm" name="skinCondition" value="warm">Warm
-        <input type="checkbox" id="skinPink" name="skinCondition" value="pink">Pink
-        <input type="checkbox" id="skinDry" name="skinCondition" value="dry">Dry
-        <input type="checkbox" id="skinDiaphoretic" name="skinCondition" value="diaphoretic">Diaphoretic
-        <input type="checkbox" id="skinClammy" name="skinCondition" value="clammy">Clammy
-        <input type="checkbox" id="skinCool" name="skinCondition" value="cool">Cool
-        <input type="checkbox" id="skinCold" name="skinCondition" value="cold">Cold
-        <input type="checkbox" id="skinHot" name="skinCondition" value="hot">Hot
-        <input type="checkbox" id="skinMottled" name="skinCondition" value="mottled">Mottled
-        <input type="checkbox" id="skinPooledLividity" name="skinCondition" value="noted with pooled lividity">Noted with pooled lividity
-    </p>
+            <p>The patient's skin is:
+                <input type="checkbox" id="skinWarm" name="skinCondition" value="warm">Warm
+                <input type="checkbox" id="skinPink" name="skinCondition" value="pink">Pink
+                <input type="checkbox" id="skinDry" name="skinCondition" value="dry">Dry
+                <input type="checkbox" id="skinDiaphoretic" name="skinCondition" value="diaphoretic">Diaphoretic
+                <input type="checkbox" id="skinClammy" name="skinCondition" value="clammy">Clammy
+                <input type="checkbox" id="skinCool" name="skinCondition" value="cool">Cool
+                <input type="checkbox" id="skinCold" name="skinCondition" value="cold">Cold
+                <input type="checkbox" id="skinHot" name="skinCondition" value="hot">Hot
+                <input type="checkbox" id="skinMottled" name="skinCondition" value="mottled">Mottled
+                <input type="checkbox" id="skinPooledLividity" name="skinCondition" value="noted with pooled lividity">Noted with pooled lividity
+            </p>
 
-    <button id="generateButton">Generate Narrative</button>
-    <button id="resetButton">Reset</button>
-    <button id="copyButton">Copy to Clipboard</button>
+            <button type="button" id="generateButton" onclick="generateNarrative()">Generate Narrative</button>
+            <button type="button" id="resetButton" onclick="resetForm()">Reset</button>
+            <button type="button" id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </section>
+    </form>
 
     <div id="narrativeOutput"></div>
 
