@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const historyDetails = document.getElementById('historyDetails').value;
         const historyNarrative = `<h2>History</h2>The patient's past medical history, medications, and allergies are noted in the patient demographic tab: ${historyDetails}`;
 
-        const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}<br>${historyNarrative}`;
+        const detailedAssessmentNarrative = `<h2>Additional Assessment</h2>Please see the assessment tab for additional details. The patient is ${document.getElementById('patientOrientation').value}. The patient's airway is ${document.getElementById('patientAirway').value}. The patient's breathing is ${document.getElementById('patientBreathing').value}. The patient's circulation is ${document.getElementById('patientCirculation').value}. The patient's skin is ${Array.from(document.querySelectorAll('input[name="skinCondition"]:checked')).map(el => el.value).join(', ')}.`;
+
+        const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}<br>${historyNarrative}<br>${detailedAssessmentNarrative}`;
         document.getElementById('narrativeOutput').innerHTML = fullNarrative;
     }
 
