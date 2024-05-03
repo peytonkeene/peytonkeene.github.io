@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function togglePainFields() {
         var painSection = document.getElementById('painFields');
         if (document.getElementById('painCheck').checked) {
-            painSection.style.display = 'block'; // Show only if checked
+            painSection.style.display = 'block';  // Show the Pain section when checked
         } else {
-            painSection.style.display = 'none'; // Hide if not checked
+            painSection.style.display = 'none';   // Hide the Pain section when not checked
         }
     }
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetForm() {
         document.getElementById('inputForm').reset();
         document.getElementById('narrativeOutput').innerHTML = '';
-        document.getElementById('painFields').style.display = 'none'; // Ensure pain fields are hidden on reset
+        document.getElementById('painFields').style.display = 'none';  // Make sure this is only affecting the Pain section
         document.getElementById('painCheck').checked = false;
     }
 
