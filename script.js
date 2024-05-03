@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function copyToClipboard() {
         const narrativeText = document.getElementById('narrativeOutput').innerText;
         navigator.clipboard.writeText(narrativeText).then(function() {
-            console.log('Narrative copied to clipboard successfully!');
             alert('Narrative copied to clipboard successfully!');
         }, function(err) {
             console.error('Could not copy narrative to clipboard: ', err);
