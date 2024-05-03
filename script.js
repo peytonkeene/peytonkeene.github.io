@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const responseType = document.getElementById('responseType').value;
         const dispatchDescription = document.getElementById('dispatchDescription').value;
 
-        // Construct the dispatch narrative with HTML tags for the heading
         const dispatchNarrative = `<h2>Dispatch</h2>EC ${emergenceCare} was dispatched and responded ${responseType} to the above address for a: ${dispatchDescription}.`;
 
         const patientPosition = document.getElementById('patientPosition').value;
@@ -24,12 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const gcs = document.getElementById('gcs').value;
         const patientAppearance = document.getElementById('patientAppearance').value;
 
-        // Construct the assessment narrative with HTML tags for the heading
         const assessmentNarrative = `<h2>Assessment</h2>Upon EMS arrival, the patient was found to be ${patientPosition} ${additionalInfo}. The patient is alert and oriented x${orientationLevel}. The patient's GCS is ${gcs}. The patient appears ${patientAppearance}.`;
 
         const chiefComplaint = document.getElementById('chiefComplaint').value;
-
-        // Construct the chief complaint narrative without repeating "Chief Complaint:"
         const chiefComplaintNarrative = `<h2>Chief Complaint</h2>${chiefComplaint}`;
 
         let painNarrative = '';
@@ -43,16 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const painDuration = document.getElementById('painDuration').value;
             const painTimeUnit = document.getElementById('painTimeUnit').value;
 
-            // Construct the pain narrative with HTML tags for the heading
             painNarrative = `<h2>Pain</h2>Pain Assessment: Onset is ${painOnset}. Provocation: ${provocationWhat} makes the pain ${provocationEffect}. Quality: ${painQuality}. Radiation: ${painRadiation}. Severity is ${painSeverity}. Time: ${painDuration} ${painTimeUnit}.`;
         }
 
-        // Combine all narratives
         const fullNarrative = `${dispatchNarrative}<br>${assessmentNarrative}<br>${chiefComplaintNarrative}<br>${painNarrative}`;
         document.getElementById('narrativeOutput').innerHTML = fullNarrative;
     }
 
-    // Function to reset the form and clear narrative
+    // Function to reset the form and clear the narrative
     function resetForm() {
         document.getElementById('inputForm').reset();
         document.getElementById('narrativeOutput').innerHTML = '';
@@ -60,8 +54,21 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('painCheck').checked = false;
     }
 
+    // Function to copy the narrative to the clipboard
+    function copyToClipboard() {
+        const narrativeText = document.getElementById('narrativeOutput').innerText;
+        navigator.clipboard.writeText(narrativeText).then(function() {
+            console.log('Narrative copied to clipboard successfully!');
+            alert('Narrative copied to clipboard successfully!');
+        }, function(err) {
+            console.error('Could not copy narrative to clipboard: ', err);
+            alert('Failed to copy narrative.');
+        });
+    }
+
     // Attach event listeners to elements
     document.getElementById('painCheck').addEventListener('change', togglePainFields);
     document.getElementById('generateButton').addEventListener('click', generateNarrative);
     document.getElementById('resetButton').addEventListener('click', resetForm);
+    document.getElementById('copyButton').addEventListener('click', copyToClipboard);
 });
