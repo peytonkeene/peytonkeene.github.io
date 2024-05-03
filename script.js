@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Attach event listener to the Pain Check checkbox
+    document.getElementById('painCheck').addEventListener('change', togglePainFields);
+
     // Function to generate the narrative based on the form inputs
     function generateNarrative() {
         const emergenceCare = document.getElementById('emergenceCare').value;
@@ -49,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('narrativeOutput').innerHTML = fullNarrative;
     }
 
+    // Attach event listener to the Generate Narrative button
+    document.getElementById('generateButton').addEventListener('click', generateNarrative);
+
     // Function to reset the form and clear the narrative
     function resetForm() {
         document.getElementById('inputForm').reset();
@@ -56,6 +62,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('painFields').style.display = 'none';
         document.getElementById('painCheck').checked = false;
     }
+
+    // Attach event listener to the Reset button
+    document.getElementById('resetButton').addEventListener('click', resetForm);
 
     // Function to copy the narrative to the clipboard
     function copyToClipboard() {
@@ -68,9 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Attach event listeners to elements
-    document.getElementById('painCheck').addEventListener('change', togglePainFields);
-    document.getElementById('generateButton').addEventListener('click', generateNarrative);
-    document.getElementById('resetButton').addEventListener('click', resetForm);
+    // Attach event listener to the Copy button
     document.getElementById('copyButton').addEventListener('click', copyToClipboard);
 });
