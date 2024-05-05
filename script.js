@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var skinConditionsArray = Array.from(skinConditions);
         var selectedSkinConditions = skinConditionsArray.filter(condition => condition.checked).map(condition => condition.value);
         narrative += selectedSkinConditions.join(", ") || "None selected";
+        narrative += ".\n\n";
 
          // Transport section
     if (document.getElementById("transportToggle").checked) {
