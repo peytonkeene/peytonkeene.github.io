@@ -122,3 +122,4 @@ document.addEventListener("DOMContentLoaded", function() {
     // Call togglePainFields and toggleTransportFields to ensure initial visibility matches checkbox state
     togglePainFields();
     toggleTransportFields();
+});
