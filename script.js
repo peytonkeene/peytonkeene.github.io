@@ -149,6 +149,30 @@ document.addEventListener("DOMContentLoaded", function() {
     return treatments.length > 0 ? `Treatment: ${treatments.join(". ")}.\n\n` : 'Treatment: None.\n\n';
 }
 
+    // Refusal
+document.addEventListener("DOMContentLoaded", function() {
+    const refusalToggle = document.getElementById("refusalToggle");
+    const refusalDetails = document.getElementById("refusalDetails");
+    const refuserSelect = document.getElementById("refuser");
+
+    // Function to toggle refusal details visibility
+    refusalToggle.addEventListener("change", function() {
+        refusalDetails.style.display = refusalToggle.checked ? "block" : "none";
+    });
+
+    // Function to update all refuser spans when the dropdown changes
+    refuserSelect.addEventListener("change", function() {
+        const selectedRefuser = refuserSelect.options[refuserSelect.selectedIndex].text;
+        document.querySelectorAll("[id^='refuserSpan']").forEach(span => {
+            span.textContent = selectedRefuser;
+        });
+    });
+
+    // Initial update on page load
+    document.querySelector("#refuser").dispatchEvent(new Event('change'));
+});
+
+    
     // Attach event listeners
     painCheck.addEventListener("change", togglePainFields);
     transportToggle.addEventListener("change", toggleTransportFields);
