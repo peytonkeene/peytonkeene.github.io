@@ -2,23 +2,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to toggle visibility of pain fields based on checkbox
     function togglePainFields() {
         var painFields = document.getElementById("painFields");
-        if (document.getElementById("painCheck").checked) {
-            painFields.style.display = "block";
-        } else {
-            painFields.style.display = "none";
-        }
-        generateNarrative(); // Call generateNarrative whenever pain fields are toggled
+        painFields.style.display = document.getElementById("painCheck").checked ? "block" : "none";
+        generateNarrative(); // Regenerate narrative when pain toggle changes
     }
 
     // Function to toggle visibility of transport fields based on checkbox
     function toggleTransportFields() {
         var transportFields = document.getElementById("transportDetails");
-        if (document.getElementById("transportToggle").checked) {
-            transportFields.style.display = "block";
-        } else {
-            transportFields.style.display = "none";
-        }
-        generateNarrative(); // Call generateNarrative whenever transport fields are toggled
+        transportFields.style.display = document.getElementById("transportToggle").checked ? "block" : "none";
+        generateNarrative(); // Regenerate narrative when transport toggle changes
     }
 
     // Function to generate the narrative
@@ -26,40 +18,40 @@ document.addEventListener("DOMContentLoaded", function() {
         var narrative = "";
 
         // Dispatch section
-        narrative += "Dispatch: ";
+        narrative += "Dispatch:\n";
         narrative += "EC " + document.getElementById("emergenceCare").value;
         narrative += " was dispatched and responded " + document.getElementById("responseType").value;
-        narrative += " to the above address for a: " + document.getElementById("dispatchDescription").value + "\n\n";
+        narrative += " to the above address for a: " + document.getElementById("dispatchDescription").value + ".\n\n";
 
         // Arrival section
-        narrative += "Arrival: ";
+        narrative += "Arrival:\n";
         narrative += "Upon EMS arrival, the patient was found to be " + document.getElementById("patientPosition").value;
         narrative += ". The patient is alert and oriented x " + document.getElementById("orientationLevel").value;
         narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
-        narrative += ". The patient appears " + document.getElementById("patientAppearance").value + "\n\n";
+        narrative += ". The patient appears " + document.getElementById("patientAppearance").value + ".\n\n";
 
         // Chief Complaint section
-        narrative += "Chief Complaint: ";
-        narrative += document.getElementById("chiefComplaint").value + "\n\n";
+        narrative += "Chief Complaint:\n";
+        narrative += document.getElementById("chiefComplaint").value + ".\n\n";
 
         // Pain section
         if (document.getElementById("painCheck").checked) {
-            narrative += "Pain: ";
+            narrative += "Pain:\n";
             narrative += "Onset: " + document.getElementById("painOnset").value;
-            narrative += ". Provocation: " + document.getElementById("provocationWhat").value;
+            narrative += ", Provocation: " + document.getElementById("provocationWhat").value;
             narrative += " makes the pain " + document.getElementById("provocationEffect").value;
-            narrative += ". Quality: " + document.getElementById("painQuality").value;
-            narrative += ". Radiation: " + document.getElementById("painRadiation").value;
-            narrative += ". Severity: " + document.getElementById("painSeverity").value;
-            narrative += ". Time: " + document.getElementById("painDuration").value + " " + document.getElementById("painTimeUnit").value + "\n\n";
+            narrative += ", Quality: " + document.getElementById("painQuality").value;
+            narrative += ", Radiation: " + document.getElementById("painRadiation").value;
+            narrative += ", Severity: " + document.getElementById("painSeverity").value;
+            narrative += ", Time: " + document.getElementById("painDuration").value + " " + document.getElementById("painTimeUnit").value + ".\n\n";
         }
 
         // History section
-        narrative += "History: ";
-        narrative += document.getElementById("pastHistory").value + "\n\n";
+        narrative += "History:\n";
+        narrative += document.getElementById("pastHistory").value + ".\n\n";
 
         // Assessment section
-        narrative += "Assessment: ";
+        narrative += "Assessment:\n";
         narrative += "Please see the assessment tab for additional details. The patient is ";
         narrative += document.getElementById("patientOrientation").value;
         narrative += ". The patient's airway is ";
@@ -68,36 +60,35 @@ document.addEventListener("DOMContentLoaded", function() {
         narrative += document.getElementById("patientBreathing").value;
         narrative += ". The patient's circulation is ";
         narrative += document.getElementById("patientCirculation").value;
-        narrative += ". The patient's skin is: ";
+        narrative += ". The patient's skin conditions: ";
         var skinConditions = document.getElementsByName("skinCondition");
-        var skinConditionsArray = Array.from(skinConditions);
-        var selectedSkinConditions = skinConditionsArray.filter(condition => condition.checked).map(condition => condition.value);
-        narrative += selectedSkinConditions.join(", ") || "None selected";
+        var skinConditionsText = Array.from(skinConditions).filter(c => c.checked).map(c => c.value).join(", ");
+        narrative += skinConditionsText || "None selected";
+        narrative += ".\n\n";
 
         // Transport section
+        narrative += "Transport:\n";
         if (document.getElementById("transportToggle").checked) {
-            narrative += "\n\nTransport: ";
-            narrative += "The patient was transferred to " + document.getElementById("transportDestination").options[document.getElementById("transportDestination").selectedIndex].text;
-            narrative += " via " + document.getElementById("transportMethod").options[document.getElementById("transportMethod").selectedIndex].text;
-            narrative += ". The patient was transported " + document.getElementById("transportStatus").options[document.getElementById("transportStatus").selectedIndex].text;
-            narrative += " to " + document.getElementById("transportLocation").options[document.getElementById("transportLocation").selectedIndex].text;
-            narrative += ". The patient's status " + document.getElementById("transportPatientStatus").options[document.getElementById("transportPatientStatus").selectedIndex].text;
-            narrative += ". The patient's vitals were obtained and the patient was reassessed as noted. Upon arrival at the destination, the patient was transferred from the stretcher to the " + document.getElementById("transferLocation").options[document.getElementById("transferLocation").selectedIndex].text;
-            narrative += " via " + document.getElementById("transferMethod").options[document.getElementById("transferMethod").selectedIndex].text;
-            narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to " + document.getElementById("careTransferredTo").options[document.getElementById("careTransferredTo").selectedIndex].text;
+            narrative += "The patient was transferred to " + document.getElementById("transportDestination").value;
+            narrative += " via " + document.getElementById("transportMethod").value;
+            narrative += ". The patient was transported " + document.getElementById("transportStatus").value;
+            narrative += " to " + document.getElementById("transportFacility").value;
+            narrative += ". The patient's status upon arrival was " + document.getElementById("patientStatus").value;
+            narrative += ".\n\n";
         } else {
-            narrative += "\n\nTransport: The patient refused transportation, please see the refusal section.";
+            narrative += "The patient refused transportation, please see the refusal section.\n\n";
         }
 
         // Update the text area with the generated narrative
         document.getElementById("narrative").value = narrative;
     }
 
-    // Function to reset the form
+    // Reset form and clear narrative
     function resetForm() {
         document.getElementById("inputForm").reset();
         togglePainFields();  // Ensure visibility is updated
         toggleTransportFields();  // Ensure visibility is updated
+        generateNarrative(); // Regenerate the narrative after reset
     }
 
     // Function to copy the generated narrative to clipboard
