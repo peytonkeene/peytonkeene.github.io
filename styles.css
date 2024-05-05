@@ -1,37 +1,55 @@
+/* General body styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333333;
+    padding: 20px;
 }
 
+/* Heading styles */
 h1, h2 {
     color: navy; /* Navy blue for headings */
+    margin-bottom: 20px;
 }
 
+/* Form styling */
 form {
     background-color: white;
     padding: 20px;
     margin: 20px auto;
-    border: 2px solid navy; /* Navy blue border for the form */
+    border: 2px solid navy; /* Navy blue border */
     width: 90%;
     max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow for depth */
 }
 
-label, p {
-    color: #333333; /* Dark grey text for better readability */
+/* Label styling for inline display with checkboxes */
+label {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+    color: #333333; /* Dark grey for readability */
 }
 
-input[type="checkbox"], input[type="text"], select, textarea {
-    width: 100%;
+/* Styling for inputs and textareas */
+input[type="text"], input[type="checkbox"], select, textarea {
     padding: 8px;
     margin-top: 5px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Light grey border */
     box-sizing: border-box;
 }
 
+/* Specific styles for checkboxes to align properly with labels */
+input[type="checkbox"] {
+    vertical-align: middle;
+    margin-top: 0; /* Adjust alignment with the label */
+    cursor: pointer;
+}
+
+/* Button styles */
 button {
-    background-color: navy; /* Navy blue background for buttons */
+    background-color: navy; /* Navy blue background */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -40,20 +58,23 @@ button {
     transition: background-color 0.3s ease;
 }
 
+/* Hover effect for buttons */
 button:hover {
     background-color: orange; /* Orange background on hover */
 }
 
+/* Link styles */
 a {
     color: orange; /* Orange color for links */
     text-decoration: none;
 }
 
+/* Hover effect for links */
 a:hover {
     text-decoration: underline;
 }
 
-/* Additional styles for specific needs */
+/* Additional styling for section titles, if needed */
 .section-title {
     background-color: navy; /* Navy blue background for section titles */
     color: white;
