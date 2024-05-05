@@ -38,7 +38,15 @@ document.addEventListener("DOMContentLoaded", function() {
         narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
         narrative += ". The patient appears " + document.getElementById("patientAppearance").value + "\n\n";
 
-        // Continue with other sections...
+        // Transport section
+         console.log("Getting arrival values...");
+        if (document.getElementById("transportToggle").checked) {
+            narrative += "Transport: The patient was transferred to " + document.getElementById("transportDestination").value;
+            narrative += " via " + document.getElementById("transportMethod").value;
+            narrative += ". The patient was transported " + document.getElementById("transportStatus").value;
+            narrative += ". Upon arrival, the patient was moved from the transport to the receiving facility.";
+            narrative += "\n\n";
+        }
 
         // Update the text area with the generated narrative
         document.getElementById("narrative").value = narrative;
