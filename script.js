@@ -73,9 +73,16 @@ document.addEventListener("DOMContentLoaded", function() {
         return `Dispatch: EC ${document.getElementById("emergenceCare").value} was dispatched and responded ${document.getElementById("responseType").value} for: ${document.getElementById("dispatchDescription").value}.\n\n`;
     }
 
-    function createArrivalNarrative() {
-        return `Arrival: Upon EMS arrival, the patient was found ${document.getElementById("patientPosition").value} at ${document.getElementById("locationFound").value}. Orientation Level: ${document.getElementById("orientationLevel").value}. GCS: ${document.getElementById("gcs").value}. Appearance: ${document.getElementById("patientAppearance").value}.\n\n`;
-    }
+   function createArrivalNarrative() {
+    const patientPosition = document.getElementById("patientPosition").options[document.getElementById("patientPosition").selectedIndex].text;
+    const locationFound = document.getElementById("locationFound").value.trim();
+    const orientationLevel = document.getElementById("orientationLevel").options[document.getElementById("orientationLevel").selectedIndex].text;
+    const gcs = document.getElementById("gcs").options[document.getElementById("gcs").selectedIndex].text;
+    const patientAppearance = document.getElementById("patientAppearance").options[document.getElementById("patientAppearance").selectedIndex].text;
+
+    return `Arrival: Upon EMS arrival, the patient was found ${patientPosition} ${locationFound}. The patient is alert and oriented x ${orientationLevel} with a GCS of ${gcs}. The patient appears ${patientAppearance}.\n\n`;
+}
+
 
     function createChiefComplaintNarrative() {
         return `Chief Complaint: ${document.getElementById("chiefComplaint").value}.\n\n`;
