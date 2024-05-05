@@ -24,69 +24,68 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function generateNarrative() {
-        console.log("Generating narrative");
-        var narrative = "";
+    console.log("Generating narrative");
+    var narrative = "";
 
-        // Dispatch section
-        narrative += "Dispatch: ";
-        narrative += "EC " + document.getElementById("emergenceCare").value;
-        narrative += " was dispatched and responded " + document.getElementById("responseType").value;
-        narrative += " to the above address for a: " + document.getElementById("dispatchDescription").value + "\n\n";
+    // Dispatch section
+    narrative += "Dispatch: ";
+    narrative += "EC " + document.getElementById("emergenceCare").value;
+    narrative += " was dispatched and responded " + document.getElementById("responseType").options[document.getElementById("responseType").selectedIndex].textContent;
+    narrative += " to the above address for a: " + document.getElementById("dispatchDescription").value + ".\n\n";
 
-        // Arrival section
-        narrative += "Arrival: ";
-        narrative += "Upon EMS arrival, the patient was found to be " + document.getElementById("patientPosition").value;
-        narrative += ". The patient is alert and oriented x " + document.getElementById("orientationLevel").value;
-        narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
-        narrative += ". The patient appears " + document.getElementById("patientAppearance").value + "\n\n";
+    // Arrival section
+    narrative += "Arrival: ";
+    narrative += "Upon EMS arrival, the patient was found to be " + document.getElementById("patientPosition").value;
+    narrative += ". The patient is alert and oriented x " + document.getElementById("orientationLevel").value;
+    narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
+    narrative += ". The patient appears " + document.getElementById("patientAppearance").value + ".\n\n";
 
-        // Chief Complaint section
-        narrative += "Chief Complaint: ";
-        narrative += document.getElementById("chiefComplaint").value + "\n\n";
+    // Chief Complaint section
+    narrative += "Chief Complaint: ";
+    narrative += document.getElementById("chiefComplaint").value + ".\n\n";
 
-        // Pain section
-        if (document.getElementById("painCheck").checked) {
-            narrative += "Pain: ";
-            narrative += "Onset: " + document.getElementById("painOnset").value;
-            narrative += ". Provocation: " + document.getElementById("provocationWhat").value;
-            narrative += " makes the pain " + document.getElementById("provocationEffect").value;
-            narrative += ". Quality: " + document.getElementById("painQuality").value;
-            narrative += ". Radiation: " + document.getElementById("painRadiation").value;
-            narrative += ". Severity: " + document.getElementById("painSeverity").value;
-            narrative += ". Time: " + document.getElementById("painDuration").value + " " + document.getElementById("painTimeUnit").value + "\n\n";
-        }
+    // Pain section
+    if (document.getElementById("painCheck").checked) {
+        narrative += "Pain: ";
+        narrative += "Onset: " + document.getElementById("painOnset").value;
+        narrative += ", Provocation: " + document.getElementById("provocationWhat").value;
+        narrative += " makes the pain " + document.getElementById("provocationEffect").value;
+        narrative += ", Quality: " + document.getElementById("painQuality").value;
+        narrative += ", Radiation: " + document.getElementById("painRadiation").value;
+        narrative += ", Severity: " + document.getElementById("painSeverity").value;
+        narrative += ", Time: " + document.getElementById("painDuration").value + " " + document.getElementById("painTimeUnit").value + ".\n\n";
+    }
 
-        // History section
-        narrative += "History: ";
-        narrative += document.getElementById("pastHistory").value + "\n\n";
+    // History section
+    narrative += "History: ";
+    narrative += document.getElementById("pastHistory").value + ".\n\n";
 
-        // Assessment section
-        narrative += "Assessment: ";
-        narrative += "Please see the assessment tab for additional details. The patient is ";
-        narrative += document.getElementById("patientOrientation").value;
-        narrative += ". The patient's airway is ";
-        narrative += document.getElementById("patientAirway").value;
-        narrative += ". The patient's breathing is ";
-        narrative += document.getElementById("patientBreathing").value;
-        narrative += ". The patient's circulation is ";
-        narrative += document.getElementById("patientCirculation").value;
-        narrative += ". The patient's skin is: ";
-        var skinConditions = document.getElementsByName("skinCondition");
-        var skinConditionsArray = Array.from(skinConditions);
-        var selectedSkinConditions = skinConditionsArray.filter(condition => condition.checked).map(condition => condition.value);
-        narrative += selectedSkinConditions.join(", ") || "None selected";
-        narrative += ".\n\n";
+    // Assessment section
+    narrative += "Assessment:\n";
+    narrative += "Please see the assessment tab for additional details. The patient is ";
+    narrative += document.getElementById("patientOrientation").value;
+    narrative += ". The patient's airway is ";
+    narrative += document.getElementById("patientAirway").value;
+    narrative += ". The patient's breathing is ";
+    narrative += document.getElementById("patientBreathing").value;
+    narrative += ". The patient's circulation is ";
+    narrative += document.getElementById("patientCirculation").value;
+    narrative += ". Skin conditions: ";
+    var skinConditions = document.getElementsByName("skinCondition");
+    var selectedSkinConditions = Array.from(skinConditions).filter(condition => condition.checked).map(condition => condition.value);
+    narrative += selectedSkinConditions.join(", ") || "None selected";
+    narrative += ".\n\n";
 
-         // Transport section
+    // Transport section
+    narrative += "Transport:\n";
     if (document.getElementById("transportToggle").checked) {
-        narrative += "Transport: ";
         narrative += "The patient was transferred to " + document.getElementById("transportDestination").options[document.getElementById("transportDestination").selectedIndex].textContent;
         narrative += " via " + document.getElementById("transportMethod").options[document.getElementById("transportMethod").selectedIndex].textContent;
         narrative += ". The patient was transported " + document.getElementById("transportStatus").options[document.getElementById("transportStatus").selectedIndex].textContent;
         narrative += " to " + document.getElementById("transportDestination2").options[document.getElementById("transportDestination2").selectedIndex].textContent;
         narrative += ". The patient's status " + document.getElementById("patientStatus").options[document.getElementById("patientStatus").selectedIndex].textContent;
         narrative += ". The patient's vitals were obtained and the patient was reassessed as noted. Upon arrival at the destination, the patient was transferred from the stretcher to the ";
-        narrative += document.getElementById("destinationBed").options;
+        narrative += document.getElementById("destinationBed").value;
         narrative += " via " + document.getElementById("destinationTransferMethod").options[document.getElementById("destinationTransferMethod").selectedIndex].textContent;
         narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to ";
         narrative += document.getElementById("careTransfer").options[document.getElementById("careTransfer").selectedIndex].textContent;
@@ -94,6 +93,11 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         narrative += "The patient refused transportation, please see the refusal section.\n\n";
     }
+
+    // Update the textarea with the generated narrative
+    document.getElementById("narrative").value = narrative;
+}
+
 
         // Update the text area with the generated narrative
         document.getElementById("narrative").value = narrative;
