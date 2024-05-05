@@ -95,17 +95,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createTransportNarrative() {
-    const transportDestinationText = document.querySelector('#transportDestination option:checked').textContent;
-    const transportMethodText = document.querySelector('#transportMethod option:checked').textContent;
-    const transportStatusText = document.querySelector('#transportStatus option:checked').textContent;
-    const transportDestination2Text = document.querySelector('#transportDestination2 option:checked').textContent;
-    const patientStatusText = document.querySelector('#patientStatus option:checked').textContent;
-    const destinationBedText = document.querySelector('#destinationBed option:checked').textContent;
-    const destinationTransferMethodText = document.querySelector('#destinationTransferMethod option:checked').textContent;
-    const careTransferText = document.querySelector('#careTransfer option:checked').textContent;
+        const transportDestinationText = document.querySelector('#transportDestination option:checked').textContent;
+        const transportMethodText = document.querySelector('#transportMethod option:checked').textContent;
+        const transportStatusText = document.querySelector('#transportStatus option:checked').textContent;
+        const transportDestination2Text = document.querySelector('#transportDestination2 option:checked').textContent;
+        const patientStatusText = document.querySelector('#patientStatus option:checked').textContent;
+        const destinationBedText = document.querySelector('#destinationBed option:checked').textContent;
+        const destinationTransferMethodText = document.querySelector('#destinationTransferMethod option:checked').textContent;
+        const careTransferText = document.querySelector('#careTransfer option:checked').textContent;
 
     return `The patient was transferred to ${transportDestinationText} via ${transportMethodText} and secured. The patient was transported ${transportStatusText} to ${transportDestination2Text}. The patient's status ${patientStatusText}. Upon arrival at destination, the patient was transferred to ${destinationBedText} via ${destinationTransferMethodText}. EMS then provided report and obtained signatures. The patient's care was transferred to ${careTransferText}.\n\n`;
-}
+    }
 
 
     function createTreatmentNarrative() {
