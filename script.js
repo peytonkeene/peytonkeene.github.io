@@ -66,6 +66,20 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("narrative").value = narrative;
     }
 
+    // Transport section
+        if (document.getElementById("transportCheck").checked) {
+            narrative += "Transport: ";
+            narrative += "The patient was transferred to " + document.getElementById("transportDestination").value;
+            narrative += " via " + document.getElementById("transportMethod").value;
+            narrative += ". The patient was transported " + document.getElementById("transportStatus").value;
+            narrative += " to " + document.getElementById("transportDestination").value;
+            narrative += ". The patient's status " + document.getElementById("transportPatientStatus").value;
+            narrative += ". Upon arrival at the destination, the patient was transferred from the stretcher to the ";
+            narrative += document.getElementById("transferDestination").value + " via ";
+            narrative += document.getElementById("transferMethod").value + " and secured. EMS provided report and obtained signatures. ";
+            narrative += "The patient's care was transferred to " + document.getElementById("careTransfer").value;
+            narrative += "\n\n";
+
     // Function to reset the form
     function resetForm() {
         document.getElementById("inputForm").reset();
