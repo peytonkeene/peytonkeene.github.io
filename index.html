@@ -13,7 +13,7 @@
         <!-- Dispatch Section -->
         <section>
             <h2>Dispatch</h2>
-            <label>Emergence Care (EC):</label>
+            <label>EC</label>
             <select id="emergenceCare">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -32,8 +32,8 @@
             </select>
             <label>Response Type:</label>
             <select id="responseType">
-                <option value="emergent">Emergent</option>
-                <option value="nonemergent">Non-Emergent</option>
+                <option value="emergent">emergent</option>
+                <option value="nonemergent">non-Emergent</option>
             </select>
             <label>Dispatch Description:</label>
             <input type="text" id="dispatchDescription" placeholder="Describe the dispatch...">
@@ -56,6 +56,7 @@
         <option value="3">3</option>
         <option value="2">2</option>
         <option value="1">1</option>
+         <option value="0">0</option>
     </select>
     <label>GCS:</label>
     <select id="gcs">
@@ -75,8 +76,8 @@
     </select>
     <label>Patient Appearance:</label>
     <select id="patientAppearance">
-        <option value="in obvious distress">In Obvious Distress</option>
-        <option value="in no obvious distress">In No Obvious Distress</option>
+        <option value="in obvious distress">in obvious distress</option>
+        <option value="in no obvious distress">in no obvious distress</option>
     </select>
 </section>
 
@@ -101,8 +102,8 @@
                 <input type="text" id="provocationWhat" placeholder="What provokes pain">
                 <label>Effect of Provocation:</label>
                 <select id="provocationEffect">
-                    <option value="better">Better</option>
-                    <option value="worse">Worse</option>
+                    <option value="better">better</option>
+                    <option value="worse">worse</option>
                 </select>
                 <label>Pain Quality:</label>
                 <select id="painQuality">
@@ -147,8 +148,11 @@
                 <input type="text" id="painDuration" placeholder="Pain duration">
                 <label>Time Unit of Pain:</label>
                 <select id="painTimeUnit">
-                    <option value="minutes">Minutes</option>
-                    <option value="hours">Hours</option>
+                    <option value="minutes">minutes</option>
+                    <option value="hours">hours</option>
+                    <option value="days">days</option>
+                    <option value="weeks">months</option>
+                    <option value="years">years</option>
                 </select>
             </div>
         </section>
@@ -187,7 +191,7 @@
             <p>The patient's circulation is
             <select id="patientCirculation">
                 <option value="is normal with an adequate rate and quality">is normal with an adequate rate and quality</option>
-                <option value="critical requiring intervention">critical requiring intervention</option>
+                <option value="critical requiring intervention">is critical requiring intervention</option>
             </select>.</p>
 
             <p>The patient's skin is:
@@ -200,7 +204,7 @@
                 <input type="checkbox" id="skinCold" name="skinCondition" value="cold">cold
                 <input type="checkbox" id="skinHot" name="skinCondition" value="hot">hot
                 <input type="checkbox" id="skinMottled" name="skinCondition" value="mottled">mottled
-                <input type="checkbox" id="skinLividity" name="skinCondition" value="lividity">noted with pooled lividity
+                <input type="checkbox" id="skinLividity" name="skinCondition" value="lividity">noted with lividity
             </p>
  </section>
         <!-- Treatment Section -->
@@ -378,10 +382,10 @@
                 </select><br>
                 <label for="careTransfer">Care Transfer:</label>
                 <select id="careTransfer">
-                    <option value="nursingStaff">Nursing Staff</option>
-                    <option value="patient">Patient</option>
-                    <option value="powerOfAttorney">Power of Attorney</option>
-                    <option value="legalGuardian">Legal Guardian</option>
+                    <option value="nursingStaff">nursing staff</option>
+                    <option value="patient">patient</option>
+                    <option value="powerOfAttorney">power of attorney</option>
+                    <option value="legalGuardian">legal guardian</option>
                 </select><br>
                 <section>
 
@@ -393,9 +397,9 @@
     <div id="refusalDetails" style="display: none;">
         <label for="refuser">Refuser:</label>
         <select id="refuser">
-            <option value="patient">Patient</option>
-            <option value="powerOfAttorney">Power of Attorney</option>
-            <option value="legalGuardian">Legal Guardian</option>
+            <option value="patient">patient</option>
+            <option value="powerOfAttorney">power of attorney</option>
+            <option value="legalGuardian">legal guardian</option>
         </select><br>
         <p>
             Refusal: The <span id="refuserSpan">[selected refuser]</span> has refused to be transported to the hospital for further evaluation and care. The <span id="refuserSpan2">[selected refuser]</span> is oriented, clear of mind, and has the capacity to understand the presented information. The <span id="refuserSpan3">[selected refuser]</span> has verbalized full understanding of their symptoms and understands that forgoing further evaluation and/or treatment could pose a significant medical risk to the patient's life. The <span id="refuserSpan4">[selected refuser]</span> has verbalized that they understand our treatment plan, including interventions and transport destinations, and does not want these interventions currently. Furthermore, the <span id="refuserSpan5">[selected refuser]</span> acknowledges that forgoing this treatment could lead to a worsening of the condition up to and including death. The <span id="refuserSpan6">[selected refuser]</span> understands that they are free to call 911 should the condition worsen, or they later decide that they wish to be transported to the Emergency Department for further evaluation and intervention. The <span id="refuserSpan7">[selected refuser]</span> acknowledged and assumed risks and signed the EMS Refusal Form.
