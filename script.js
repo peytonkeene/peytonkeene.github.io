@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Event listeners
+    document.getElementById("generateButton").addEventListener("click", generateNarrative);
     document.getElementById("resetButton").addEventListener("click", resetForm);
     document.getElementById("copyButton").addEventListener("click", copyToClipboard);
     document.getElementById("painCheck").addEventListener("change", togglePainFields);
