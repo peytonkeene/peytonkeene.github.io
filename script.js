@@ -95,7 +95,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createTransportNarrative() {
-        return `Transport: The patient was transported to ${document.getElementById("transportDestination2").value} via ${document.getElementById("transportMethod").value}. Status during transport: ${document.getElementById("transportStatus").value}. Upon arrival, transferred to ${document.getElementById("destinationBed").value}.\n\n`;
+        const transportDestination2Text = document.querySelector('#transportDestination2 option:checked').textContent;
+        const transportMethodText = document.querySelector('#transportMethod option:checked').textContent;
+        const transportStatusText = document.querySelector('#transportStatus option:checked').textContent;
+        const destinationBedText = document.querySelector('#destinationBed option:checked').textContent;
+
+        return `Transport: The patient was transported to ${transportDestination2Text} via ${transportMethodText}. Status during transport: ${transportStatusText}. Upon arrival, transferred to ${destinationBedText}.\n\n`;
     }
 
     function createTreatmentNarrative() {
