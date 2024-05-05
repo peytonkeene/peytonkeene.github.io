@@ -1,100 +1,61 @@
-/* Styles for the entire page */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    background-color: #f4f4f4;
+    color: #333333;
+}
+
+h1, h2 {
+    color: navy; /* Navy blue for headings */
+}
+
+form {
+    background-color: white;
     padding: 20px;
+    margin: 20px auto;
+    border: 2px solid navy; /* Navy blue border for the form */
+    width: 90%;
+    max-width: 600px;
 }
 
-h1 {
-    text-align: center;
+label, p {
+    color: #333333; /* Dark grey text for better readability */
 }
 
-/* Styles for form sections */
-section {
-    margin-bottom: 20px;
-}
-
-h2 {
-    margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-textarea,
-select,
-input[type="text"] {
+input[type="checkbox"], input[type="text"], select, textarea {
     width: 100%;
     padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    margin-top: 5px;
     margin-bottom: 10px;
-}
-
-input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-/* Styles for the narrative box */
-#narrativeBox {
-    margin-top: 20px;
-    padding: 20px;
-    border: 2px solid #ccc;
-    background-color: #f9f9f9;
-}
-
-#narrative {
-    width: 100%;
-    height: 150px;
-    resize: none;
-    border: 1px solid #ccc;
-    padding: 10px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    border: 1px solid #ddd;
     box-sizing: border-box;
-    margin-bottom: 20px; /* Add margin to match form sections */
 }
 
-/* Button styles */
 button {
+    background-color: navy; /* Navy blue background for buttons */
+    color: white;
+    border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    text-transform: uppercase;
     cursor: pointer;
-    margin-right: 10px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #ddd;
+    background-color: orange; /* Orange background on hover */
 }
 
-/* Reset button styles */
-#resetButton {
-    background-color: #f44336;
+a {
+    color: orange; /* Orange color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Additional styles for specific needs */
+.section-title {
+    background-color: navy; /* Navy blue background for section titles */
     color: white;
-    border: none;
-}
-
-#resetButton:hover {
-    background-color: #d32f2f;
-}
-
-/* Copy button styles */
-#copyButton {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-}
-
-#copyButton:hover {
-    background-color: #388e3c;
-}
-
-/* Hide pain fields when not selected */
-#painFields {
-    display: none;
+    padding: 5px 10px;
 }
