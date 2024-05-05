@@ -29,17 +29,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function generateNarrative() {
-        let narrative = createDispatchNarrative() +
-                        createArrivalNarrative() +
-                        createChiefComplaintNarrative() +
-                        (painCheck.checked ? createPainNarrative() : '') +
-                        createHistoryNarrative() +
-                        createAssessmentNarrative() +
-                        createTreatmentNarrative() +
-                        (transportToggle.checked ? createTransportNarrative() : '') +
-                        (refusalToggle.checked ? createRefusalNarrative() : '');
-        updateNarrative(narrative);
-    }
+    let narrative = createDispatchNarrative() +
+                    createArrivalNarrative() +
+                    createChiefComplaintNarrative() +
+                    (painCheck.checked ? createPainNarrative() : '') +
+                    createHistoryNarrative() +
+                    createAssessmentNarrative() +
+                    createTreatmentNarrative() +
+                    (transportToggle.checked ? createTransportNarrative() : '') +
+                    (refusalToggle.checked ? createRefusalNarrative() : '') +
+                    createSmartDocsNarrative(); // Add Smart Docs narrative generation here
+    updateNarrative(narrative);
+}
+
 
     // Reset, copy, and update functions
     function resetForm() {
@@ -138,6 +140,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const refuser = document.getElementById("refuser").options[document.getElementById("refuser").selectedIndex].text;
         return `Refusal: The ${refuser} has refused to be transported to the hospital for further evaluation and care. The ${refuser} is oriented, clear of mind, and has the capacity to understand the presented information. The ${refuser} has verbalized full understanding of their symptoms and understands that forgoing further evaluation and/or treatment could pose a significant medical risk to the patient's life. The ${refuser} has verbalized that they understand our treatment plan, including interventions and transport destinations, and does not want these interventions currently. Furthermore, the ${refuser} acknowledges that forgoing this treatment could lead to worsening of condition up to and including death. The ${refuser} understands that they are free to call 911 should the condition worsen, or they later decide that they wish to be transported to the Emergency Department for further evaluation and intervention. The ${refuser} acknowledged and assumed risks and signed the EMS Refusal Form.\n\n`;
     }
+
+    function createSmartDocsNarrative() {
+    const smartDocsDetails = document.getElementById("smartDocsInput").value.trim();
+    return `Smart Docs: ${smartDocsDetails ? smartDocsDetails : "No additional details provided."}\n\n`;
+}
+
 
     // Attach event listeners
     painCheck.addEventListener("change", togglePainFields);
