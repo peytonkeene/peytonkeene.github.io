@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const painCheck = document.getElementById("painCheck");
     const transportToggle = document.getElementById("transportToggle");
+    const refusalToggle = document.getElementById("refusalToggle");
     const generateButton = document.getElementById("generateButton");
     const resetButton = document.getElementById("resetButton");
     const copyButton = document.getElementById("copyButton");
@@ -15,19 +16,23 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Toggles the visibility of the pain fields
+   // Toggle functions for different sections
     function togglePainFields() {
         toggleVisibility("painFields", painCheck.checked);
         generateNarrative();
     }
 
-    // Toggles the visibility of the transport details
     function toggleTransportFields() {
         toggleVisibility("transportDetails", transportToggle.checked);
         generateNarrative();
     }
 
-    // Generates the EMS narrative based on the current state of the form
+    function toggleRefusalFields() {
+        toggleVisibility("refusalDetails", refusalToggle.checked);
+        generateNarrative();
+    }
+    
+   // Narrative generation for all sections
     function generateNarrative() {
         let narrative = createDispatchNarrative() +
                         createArrivalNarrative() +
@@ -36,11 +41,17 @@ document.addEventListener("DOMContentLoaded", function() {
                         createHistoryNarrative() +
                         createAssessmentNarrative() +
                         (transportToggle.checked ? createTransportNarrative() : '') +
-                        createTreatmentNarrative();
-
+                        createTreatmentNarrative() +
+                        (refusalToggle.checked ? createRefusalNarrative() : '');
         updateNarrative(narrative);
     }
 
+    // Function to create the refusal narrative dynamically based on the selected refuser
+    function createRefusalNarrative() {
+        const refuser = document.getElementById("refuser").value;
+        return `Refusal: The ${refuser} has refused to be transported to the hospital for further evaluation and care. The ${refuser} is oriented, clear of mind, and has the capacity to understand the presented information. The ${refuser} has verbalized full understanding of their symptoms and understands that forgoing further evaluation and/or treatment could pose a significant medical risk to the patient's life. The ${refuser} has verbalized that they understand our treatment plan, including interventions and transport destinations, and does not want these interventions currently. Furthermore, the ${refuser} acknowledges that forgoing this treatment could lead to worsening of condition up to and including death. The ${refuser} understands that they are free to call 911 should the condition worsen, or they later decide that they wish to be transported to the Emergency Department for further evaluation and intervention. The ${refuser} acknowledged and assumed risks and signed the EMS Refusal Form.\n\n`;
+    }
+    
     // Resets the form and the narrative
     function resetForm() {
         document.getElementById("inputForm").reset();
@@ -148,25 +159,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Concatenate all treatments into a single string, separated by spaces or new lines
     return treatments.length > 0 ? `Treatment: ${treatments.join(". ")}.\n\n` : 'Treatment: None.\n\n';
 }
-
-    // Refusal
-document.addEventListener("DOMContentLoaded", function() {
-    const refusalToggle = document.getElementById("refusalToggle");
-    const refusalDetails = document.getElementById("refusalDetails");
-    const refuserSelect = document.getElementById("refuser");
-
-    // Function to toggle refusal details visibility
-    refusalToggle.addEventListener("change", function() {
-        refusalDetails.style.display = refusalToggle.checked ? "block" : "none";
-    });
-
-    // Function to update all refuser spans when the dropdown changes
-    refuserSelect.addEventListener("change", function() {
-        const selectedRefuser = refuserSelect.options[refuserSelect.selectedIndex].text;
-        document.querySelectorAll("[id^='refuserSpan']").forEach(span => {
-            span.textContent = selectedRefuser;
-        });
-    });
 
     // Initial update on page load
     document.querySelector("#refuser").dispatchEvent(new Event('change'));
