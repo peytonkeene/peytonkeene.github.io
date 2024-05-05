@@ -6,17 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetButton = document.getElementById("resetButton");
     const copyButton = document.getElementById("copyButton");
 
-    // Toggle visibility based on condition
+    // Function to toggle visibility of specific sections based on checkbox states
     function toggleVisibility(elementId, condition) {
         const element = document.getElementById(elementId);
-        if (element) {
-            element.style.display = condition ? "block" : "none";
-        } else {
-            console.error(`${elementId} not found.`);
-        }
+        element.style.display = condition ? "block" : "none";
     }
 
-   // Toggle functions for different sections
+    // Toggle functions for different sections
     function togglePainFields() {
         toggleVisibility("painFields", painCheck.checked);
         generateNarrative();
@@ -31,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
         toggleVisibility("refusalDetails", refusalToggle.checked);
         generateNarrative();
     }
-    
-   // Narrative generation for all sections
+
+    // Narrative generation for all sections
     function generateNarrative() {
         let narrative = createDispatchNarrative() +
                         createArrivalNarrative() +
@@ -46,54 +42,39 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNarrative(narrative);
     }
 
-    // Function to create the refusal narrative dynamically based on the selected refuser
-    function createRefusalNarrative() {
-        const refuser = document.getElementById("refuser").value;
-        return `Refusal: The ${refuser} has refused to be transported to the hospital for further evaluation and care. The ${refuser} is oriented, clear of mind, and has the capacity to understand the presented information. The ${refuser} has verbalized full understanding of their symptoms and understands that forgoing further evaluation and/or treatment could pose a significant medical risk to the patient's life. The ${refuser} has verbalized that they understand our treatment plan, including interventions and transport destinations, and does not want these interventions currently. Furthermore, the ${refuser} acknowledges that forgoing this treatment could lead to worsening of condition up to and including death. The ${refuser} understands that they are free to call 911 should the condition worsen, or they later decide that they wish to be transported to the Emergency Department for further evaluation and intervention. The ${refuser} acknowledged and assumed risks and signed the EMS Refusal Form.\n\n`;
-    }
-    
-    // Resets the form and the narrative
+    // Reset, copy, and update functions
     function resetForm() {
         document.getElementById("inputForm").reset();
         updateNarrative('');
     }
 
-    // Copies the narrative to the clipboard
     function copyToClipboard() {
         const narrativeBox = document.getElementById("narrative");
-        if (narrativeBox) {
-            narrativeBox.select();
-            document.execCommand("copy");
-        } else {
-            console.error("Narrative textarea not found.");
-        }
+        narrativeBox.select();
+        document.execCommand("copy");
     }
 
-    // Updates the narrative text area
     function updateNarrative(narrative) {
         const narrativeBox = document.getElementById("narrative");
-        if (narrativeBox) {
-            narrativeBox.value = narrative;
-        } else {
-            console.error("Narrative textarea not found.");
-        }
+        narrativeBox.value = narrative;
     }
 
     // Define narrative creation functions for each section
     function createDispatchNarrative() {
-        return `Dispatch: EC ${document.getElementById("emergenceCare").value} was dispatched and responded to the above location ${document.getElementById("responseType").value} for ${document.getElementById("dispatchDescription").value}.\n\n`;
+        const ecUnit = document.getElementById("emergenceCare").value;
+        const responseType = document.getElementById("responseType").options[document.getElementById("responseType").selectedIndex].text;
+        const dispatchDescription = document.getElementById("dispatchDescription").value;
+        return `Dispatch: EC Unit ${ecUnit} was dispatched and responded ${responseType.toLowerCase()} to the above location for a ${dispatchDescription}.\n\n`;
     }
 
-   function createArrivalNarrative() {
-    const patientPosition = document.getElementById("patientPosition").options[document.getElementById("patientPosition").selectedIndex].text;
-    const locationFound = document.getElementById("locationFound").value.trim();
-    const orientationLevel = document.getElementById("orientationLevel").options[document.getElementById("orientationLevel").selectedIndex].text;
-    const gcs = document.getElementById("gcs").options[document.getElementById("gcs").selectedIndex].text;
-    const patientAppearance = document.getElementById("patientAppearance").options[document.getElementById("patientAppearance").selectedIndex].text;
-
-    return `Arrival: Upon EMS arrival, the patient was found ${patientPosition} ${locationFound}. The patient is alert and oriented x ${orientationLevel} with a GCS of ${gcs}. The patient appears ${patientAppearance}.\n\n`;
-}
-
+    function createArrivalNarrative() {
+        const patientPosition = document.getElementById("patientPosition").options[document.getElementById("patientPosition").selectedIndex].text;
+        const locationFound = document.getElementById("locationFound").value.trim();
+        const orientationLevel = document.getElementById("orientationLevel").options[document.getElementById("orientationLevel").selectedIndex].text;
+        const gcs = document.getElementById("gcs").options[document.getElementById("gcs").selectedIndex].text;
+        const patientAppearance = document.getElementById("patientAppearance").options[document.getElementById("patientAppearance").selectedIndex].text;
+        return `Arrival: Upon EMS arrival, the patient was found ${patientPosition} at ${locationFound}. The patient is alert and oriented x${orientationLevel} with a GCS of ${gcs}. The patient appears ${patientAppearance}.\n\n`;
+    }
 
     function createChiefComplaintNarrative() {
         return `Chief Complaint: ${document.getElementById("chiefComplaint").value}.\n\n`;
@@ -104,24 +85,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createHistoryNarrative() {
-    const pastHistory = document.getElementById("pastHistory").value.trim();
-
-    return `History: The patient's history, medication, and allergies are noted in the patient demographic tab. The patient's past pertinent history is ${pastHistory ? pastHistory : "No additional history provided."}\n\n`;
-}
+        const pastHistory = document.getElementById("pastHistory").value.trim();
+        return `History: The patient's history, medication, and allergies are noted in the patient demographic tab. The patient's past pertinent history is: ${pastHistory ? pastHistory : "No additional history provided."}\n\n`;
+    }
 
     function createAssessmentNarrative() {
-    const patientOrientation = document.getElementById("patientOrientation").options[document.getElementById("patientOrientation").selectedIndex].text;
-    const patientAirway = document.getElementById("patientAirway").options[document.getElementById("patientAirway").selectedIndex].text;
-    const patientBreathing = document.getElementById("patientBreathing").options[document.getElementById("patientBreathing").selectedIndex].text;
-    const patientCirculation = document.getElementById("patientCirculation").options[document.getElementById("patientCirculation").selectedIndex].text;
-
-    // Collect all checked skin conditions
-    const skinConditionCheckboxes = document.querySelectorAll('input[name="skinCondition"]:checked');
-    let skinConditions = Array.from(skinConditionCheckboxes).map(checkbox => checkbox.value).join(", ");
-    skinConditions = skinConditions || "no notable conditions";  // Provide a default if no checkboxes are checked
-
-    return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
-}
+        const patientOrientation = document.getElementById("patientOrientation").options[document.getElementById("patientOrientation").selectedIndex].text;
+        const patientAirway = document.getElementById("patientAirway").options[document.getElementById("patientAirway").selectedIndex].text;
+        const patientBreathing = document.getElementById("patientBreathing").options[document.getElementById("patientBreathing").selectedIndex].text;
+        const patientCirculation = document.getElementById("patientCirculation").options[document.getElementById("patientCirculation").selectedIndex].text;
+        const skinConditions = Array.from(document.querySelectorAll('input[name="skinCondition"]:checked')).map(checkbox => checkbox.value).join(", ");
+        return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation is ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
+    }
 
     function createTransportNarrative() {
         const transportDestinationText = document.querySelector('#transportDestination option:checked').textContent;
@@ -133,41 +108,18 @@ document.addEventListener("DOMContentLoaded", function() {
         const destinationTransferMethodText = document.querySelector('#destinationTransferMethod option:checked').textContent;
         const careTransferText = document.querySelector('#careTransfer option:checked').textContent;
 
-        return `The patient was transferred to ${transportDestinationText} via ${transportMethodText} and secured. The patient was transported ${transportStatusText} to ${transportDestination2Text}. The patient's status ${patientStatusText}. Upon arrival at destination, the patient was transferred to ${destinationBedText} via ${destinationTransferMethodText}. EMS then provided report and obtained signatures. The patient's care was transferred to ${careTransferText}.\n\n`;
+        return `Transport: The patient was transferred to ${transportDestinationText} via ${transportMethodText} and secured. The patient was transported ${transportStatusText} to ${transportDestination2Text}. The patient's status ${patientStatusText}. Upon arrival at destination, the patient was transferred to ${destinationBedText} via ${destinationTransferMethodText}. EMS then provided report and obtained signatures. The patient's care was transferred to ${careTransferText}.\n\n`;
     }
 
-   function createTreatmentNarrative() {
-    const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
-    let treatments = [];
+    function createRefusalNarrative() {
+        const refuser = document.getElementById("refuser").options[document.getElementById("refuser").selectedIndex].text;
+        return `Refusal: The ${refuser} has refused to be transported to the hospital for further evaluation and care. The ${refuser} is oriented, clear of mind, and has the capacity to understand the presented information. The ${refuser} has verbalized full understanding of their symptoms and understands that forgoing further evaluation and/or treatment could pose a significant medical risk to the patient's life. The ${refuser} has verbalized that they understand our treatment plan, including interventions and transport destinations, and does not want these interventions currently. Furthermore, the ${refuser} acknowledges that forgoing this treatment could lead to worsening of condition up to and including death. The ${refuser} understands that they are free to call 911 should the condition worsen, or they later decide that they wish to be transported to the Emergency Department for further evaluation and intervention. The ${refuser} acknowledged and assumed risks and signed the EMS Refusal Form.\n\n`;
+    }
 
-    treatmentCheckboxes.forEach(checkbox => {
-        if (checkbox.id === "other" && checkbox.checked) {
-            // Include the text from the additionalTreatment textarea if "Other" is checked
-            const additionalTreatmentText = document.querySelector('textarea[name="additionalTreatment"]').value.trim();
-            if (additionalTreatmentText) {
-                treatments.push("Other treatment specified: " + additionalTreatmentText);
-            } else {
-                treatments.push("Other treatment not listed.");
-            }
-        } else {
-            // Use the next sibling's text content for the label description
-            const labelDescription = checkbox.nextElementSibling ? checkbox.nextElementSibling.textContent.trim() : 'Unknown treatment';
-            treatments.push(labelDescription);
-        }
-    });
-
-    // Concatenate all treatments into a single string, separated by spaces or new lines
-    return treatments.length > 0 ? `Treatment: ${treatments.join(". ")}.\n\n` : 'Treatment: None.\n\n';
-}
-
-    // Initial update on page load
-    document.querySelector("#refuser").dispatchEvent(new Event('change'));
-});
-
-    
     // Attach event listeners
     painCheck.addEventListener("change", togglePainFields);
     transportToggle.addEventListener("change", toggleTransportFields);
+    refusalToggle.addEventListener("change", toggleRefusalFields);
     generateButton.addEventListener("click", generateNarrative);
     resetButton.addEventListener("click", resetForm);
     copyButton.addEventListener("click", copyToClipboard);
