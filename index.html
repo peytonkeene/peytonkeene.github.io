@@ -206,36 +206,92 @@
         <!-- Treatment Section -->
 <section>
     <h2>Treatment</h2>
-    <label><input type="checkbox" name="treatment" value="airwayLifesaving">Airway intervention was required as a lifesaving measure.</label><br>
-    <label><input type="checkbox" name="treatment" value="oxygenVitals">Oxygen administration was required due to the patient's status/vitals.</label><br>
-    <label><input type="checkbox" name="treatment" value="airwayOxygenLifesaving">Airway intervention and oxygen administration were required as a lifesaving measure.</label><br>
-    <label><input type="checkbox" name="treatment" value="oxygenComfort">Oxygen administration was required for patient comfort.</label><br>
-    <label><input type="checkbox" name="treatment" value="cardiacDiagnostics">Patient was placed on cardiac and hemodynamic diagnostics for continuous monitoring.</label><br>
-    <label><input type="checkbox" name="treatment" value="hemodynamicMonitoring">Patient was placed on hemodynamic monitoring.</label><br>
-    <label><input type="checkbox" name="treatment" value="12lead">12-lead ECG was obtained due to possible cardiac related event.</label><br>
-    <label><input type="checkbox" name="treatment" value="ivAnticipation">IV access was successfully established in anticipation of medication or fluid administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="ivMedication">IV access was successfully established for medication administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="ivFluid">IV access was successfully established for fluid administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="ivMedicationFluid">IV access was successfully established for medication and fluid administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="ivUnsuccessfulSuccessful">IV access was unsuccessful, then successful for medication and fluid administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="ivUnsuccessfulAnticipation">IV access was unsuccessful, then successful in anticipation of medication or fluid administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="ioMedicationFluid">IO access established successfully for medication or fluid administration.</label><br>
-    <label><input type="checkbox" name="treatment" value="medicationTransport">The sending facility required medication administration during transport.</label><br>
-    <label><input type="checkbox" name="treatment" value="medicationsFlowchart">Medications in flowchart given to patient due to current condition.</label><br>
-    <label><input type="checkbox" name="treatment" value="manualCPR">Manual CPR performed.</label><br>
-    <label><input type="checkbox" name="treatment" value="manualMechanicalCPR">Manual CPR and mechanical CPR performed.</label><br>
-    <label><input type="checkbox" name="treatment" value="cprDiscontinued">CPR initiated and discontinued due to patient status.</label><br>
-    <label><input type="checkbox" name="treatment" value="cCollar">Patient required c-collar for spinal precautions.</label><br>
-    <label><input type="checkbox" name="treatment" value="cCollarBackboard">Patient required c-collar and backboard for spinal precautions.</label><br>
-    <label><input type="checkbox" name="treatment" value="backboard">Patient placed on backboard/scoop stretcher for safe patient movement.</label><br>
-    <label><input type="checkbox" name="treatment" value="bandagingTourniquet">Patient required bandaging/tourniquet for hemorrhage control.</label><br>
-    <label><input type="checkbox" name="treatment" value="bandaging">Patient required bandaging due to injury.</label><br>
-    <label><input type="checkbox" name="treatment" value="icepack">Patient required icepack due to injury.</label><br>
-    <label><input type="checkbox" name="treatment" value="icepackSplinting">Patient required icepack and splinting due to injury.</label><br>
-    <label><input type="checkbox" name="treatment" value="refusal">Patient refused any treatment.</label><br>
-    <label><input type="checkbox" name="treatment" value="other">Other:</label><br>
-        <textarea name="additionalTreatment" placeholder="Enter additional treatment information..."></textarea>
+    <input type="checkbox" id="airwayLifesaving" name="treatment" value="airwayLifesaving">
+    <label for="airwayLifesaving">Airway intervention was required as a lifesaving measure.</label><br>
+
+    <input type="checkbox" id="oxygenVitals" name="treatment" value="oxygenVitals">
+    <label for="oxygenVitals">Oxygen administration was required due to the patient's status/vitals.</label><br>
+
+    <input type="checkbox" id="airwayOxygenLifesaving" name="treatment" value="airwayOxygenLifesaving">
+    <label for="airwayOxygenLifesaving">Airway intervention and oxygen administration were required as a lifesaving measure.</label><br>
+
+    <input type="checkbox" id="oxygenComfort" name="treatment" value="oxygenComfort">
+    <label for="oxygenComfort">Oxygen administration was required for patient comfort.</label><br>
+
+    <input type="checkbox" id="cardiacDiagnostics" name="treatment" value="cardiacDiagnostics">
+    <label for="cardiacDiagnostics">Patient was placed on cardiac and hemodynamic diagnostics for continuous monitoring.</label><br>
+
+    <input type="checkbox" id="hemodynamicMonitoring" name="treatment" value="hemodynamicMonitoring">
+    <label for="hemodynamicMonitoring">Patient was placed on hemodynamic monitoring.</label><br>
+
+    <input type="checkbox" id="12lead" name="treatment" value="12lead">
+    <label for="12lead">12-lead ECG was obtained due to possible cardiac related event.</label><br>
+
+    <input type="checkbox" id="ivAnticipation" name="treatment" value="ivAnticipation">
+    <label for="ivAnticipation">IV access was successfully established in anticipation of medication or fluid administration.</label><br>
+
+    <input type="checkbox" id="ivMedication" name="treatment" value="ivMedication">
+    <label for="ivMedication">IV access was successfully established for medication administration.</label><br>
+
+    <input type="checkbox" id="ivFluid" name="treatment" value="ivFluid">
+    <label for="ivFluid">IV access was successfully established for fluid administration.</label><br>
+
+    <input type="checkbox" id="ivMedicationFluid" name="treatment" value="ivMedicationFluid">
+    <label for="ivMedicationFluid">IV access was successfully established for medication and fluid administration.</label><br>
+
+    <input type="checkbox" id="ivUnsuccessfulSuccessful" name="treatment" value="ivUnsuccessfulSuccessful">
+    <label for="ivUnsuccessfulSuccessful">IV access was unsuccessful, then successful for medication and fluid administration.</label><br>
+
+    <input type="checkbox" id="ivUnsuccessfulAnticipation" name="treatment" value="ivUnsuccessfulAnticipation">
+    <label for="ivUnsuccessfulAnticipation">IV access was unsuccessful, then successful in anticipation of medication or fluid administration.</label><br>
+
+    <input type="checkbox" id="ioMedicationFluid" name="treatment" value="ioMedicationFluid">
+    <label for="ioMedicationFluid">IO access established successfully for medication or fluid administration.</label><br>
+
+    <input type="checkbox" id="medicationTransport" name="treatment" value="medicationTransport">
+    <label for="medicationTransport">The sending facility required medication administration during transport.</label><br>
+
+    <input type="checkbox" id="medicationsFlowchart" name="treatment" value="medicationsFlowchart">
+    <label for="medicationsFlowchart">Medications in flowchart given to patient due to current condition.</label><br>
+
+    <input type="checkbox" id="manualCPR" name="treatment" value="manualCPR">
+    <label for="manualCPR">Manual CPR performed.</label><br>
+
+    <input type="checkbox" id="manualMechanicalCPR" name="treatment" value="manualMechanicalCPR">
+    <label for="manualMechanicalCPR">Manual CPR and mechanical CPR performed.</label><br>
+
+    <input type="checkbox" id="cprDiscontinued" name="treatment" value="cprDiscontinued">
+    <label for="cprDiscontinued">CPR initiated and discontinued due to patient status.</label><br>
+
+    <input type="checkbox" id="cCollar" name="treatment" value="cCollar">
+    <label for="cCollar">Patient required c-collar for spinal precautions.</label><br>
+
+    <input type="checkbox" id="cCollarBackboard" name="treatment" value="cCollarBackboard">
+    <label for="cCollarBackboard">Patient required c-collar and backboard for spinal precautions.</label><br>
+
+    <input type="checkbox" id="backboard" name="treatment" value="backboard">
+    <label for="backboard">Patient placed on backboard/scoop stretcher for safe patient movement.</label><br>
+
+    <input type="checkbox" id="bandagingTourniquet" name="treatment" value="bandagingTourniquet">
+    <label for="bandagingTourniquet">Patient required bandaging/tourniquet for hemorrhage control.</label><br>
+
+    <input type="checkbox" id="bandaging" name="treatment" value="bandaging">
+    <label for="bandaging">Patient required bandaging due to injury.</label><br>
+
+    <input type="checkbox" id="icepack" name="treatment" value="icepack">
+    <label for="icepack">Patient required icepack due to injury.</label><br>
+
+    <input type="checkbox" id="icepackSplinting" name="treatment" value="icepackSplinting">
+    <label for="icepackSplinting">Patient required icepack and splinting due to injury.</label><br>
+
+    <input type="checkbox" id="refusal" name="treatment" value="refusal">
+    <label for="refusal">Patient refused any treatment.</label><br>
+
+    <input type="checkbox" id="other" name="treatment" value="other">
+    <label for="other">Other treatment specified:</label>
+    <textarea name="additionalTreatment" placeholder="Enter additional treatment information..."></textarea>
 </section>
+
         
        <!-- Transport Section -->
         <section>
