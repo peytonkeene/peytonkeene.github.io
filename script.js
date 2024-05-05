@@ -79,16 +79,16 @@ document.addEventListener("DOMContentLoaded", function() {
          // Transport section
     if (document.getElementById("transportToggle").checked) {
         narrative += "Transport: ";
-        narrative += "The patient was transferred to " + document.getElementById("transportDestination").options[document.getElementById("transportDestination").selectedIndex].text;
-        narrative += " via " + document.getElementById("transportMethod").options[document.getElementById("transportMethod").selectedIndex].text;
-        narrative += ". The patient was transported " + document.getElementById("transportStatus").options[document.getElementById("transportStatus").selectedIndex].text;
-        narrative += " to " + document.getElementById("transportDestination2").options[document.getElementById("transportDestination2").selectedIndex].text;
-        narrative += ". The patient's status " + document.getElementById("patientStatus").options[document.getElementById("patientStatus").selectedIndex].text;
+        narrative += "The patient was transferred to " + document.getElementById("transportDestination").options[document.getElementById("transportDestination").selectedIndex].textContent;
+        narrative += " via " + document.getElementById("transportMethod").options[document.getElementById("transportMethod").selectedIndex].textContent;
+        narrative += ". The patient was transported " + document.getElementById("transportStatus").options[document.getElementById("transportStatus").selectedIndex].textContent;
+        narrative += " to " + document.getElementById("transportDestination2").options[document.getElementById("transportDestination2").selectedIndex].textContent;
+        narrative += ". The patient's status " + document.getElementById("patientStatus").options[document.getElementById("patientStatus").selectedIndex].textContent;
         narrative += ". The patient's vitals were obtained and the patient was reassessed as noted. Upon arrival at the destination, the patient was transferred from the stretcher to the ";
         narrative += document.getElementById("destinationBed").value;
-        narrative += " via " + document.getElementById("destinationTransferMethod").options[document.getElementById("destinationTransferMethod").selectedIndex].text;
+        narrative += " via " + document.getElementById("destinationTransferMethod").options[document.getElementById("destinationTransferMethod").selectedIndex].textContent;
         narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to ";
-        narrative += document.getElementById("careTransfer").options[document.getElementById("careTransfer").selectedIndex].text;
+        narrative += document.getElementById("careTransfer").options[document.getElementById("careTransfer").selectedIndex].textContent;
         narrative += ".\n\n";
     } else {
         narrative += "The patient refused transportation, please see the refusal section.\n\n";
