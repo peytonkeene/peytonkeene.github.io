@@ -9,6 +9,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Function to toggle visibility of transport fields based on checkbox
+    function toggleTransportFields() {
+        var transportFields = document.getElementById("transportFields");
+        if (document.getElementById("transportCheck").checked) {
+            transportFields.style.display = "block";
+        } else {
+            transportFields.style.display = "none";
+        }
+    }
+
     // Function to generate the narrative based on user input
     function generateNarrative() {
         var narrative = "";
