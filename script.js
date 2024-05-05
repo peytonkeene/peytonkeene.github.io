@@ -90,9 +90,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createAssessmentNarrative() {
-        const skinConditions = Array.from(document.getElementsByName("skinCondition")).filter(c => c.checked).map(c => c.value).join(", ");
-        return `Assessment: The patient is ${document.getElementById("patientOrientation").value}. Airway: ${document.getElementById("patientAirway").value}. Breathing: ${document.getElementById("patientBreathing").value}. Circulation: ${document.getElementById("patientCirculation").value}. Skin: ${skinConditions}.\n\n`;
-    }
+    const patientOrientation = document.getElementById("patientOrientation").options[document.getElementById("patientOrientation").selectedIndex].text;
+    const patientAirway = document.getElementById("patientAirway").options[document.getElementById("patientAirway").selectedIndex].text;
+    const patientBreathing = document.getElementById("patientBreathing").options[document.getElementById("patientBreathing").selectedIndex].text;
+    const patientCirculation = document.getElementById("patientCirculation").options[document.getElementById("patientCirculation").selectedIndex].text;
+
+    // Collect all checked skin conditions
+    const skinConditionCheckboxes = document.querySelectorAll('input[name="skinCondition"]:checked');
+    let skinConditions = Array.from(skinConditionCheckboxes).map(checkbox => checkbox.value).join(", ");
+    skinConditions = skinConditions || "no notable conditions";  // Provide a default if no checkboxes are checked
+
+    return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation is ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
+}
 
     function createTransportNarrative() {
         const transportDestinationText = document.querySelector('#transportDestination option:checked').textContent;
