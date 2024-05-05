@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const orientationLevel = document.getElementById("orientationLevel").options[document.getElementById("orientationLevel").selectedIndex].text;
         const gcs = document.getElementById("gcs").options[document.getElementById("gcs").selectedIndex].text;
         const patientAppearance = document.getElementById("patientAppearance").options[document.getElementById("patientAppearance").selectedIndex].text;
-        return `Arrival: Upon EMS arrival, the patient was found ${patientPosition} at ${locationFound}. The patient is alert and oriented x${orientationLevel} with a GCS of ${gcs}. The patient appears ${patientAppearance}.\n\n`;
+        return `Arrival: Upon EMS arrival, the patient was found ${patientPosition} ${locationFound}. The patient is alert and oriented x ${orientationLevel} with a GCS of ${gcs}. The patient appears ${patientAppearance}.\n\n`;
     }
 
     function createChiefComplaintNarrative() {
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function createHistoryNarrative() {
         const pastHistory = document.getElementById("pastHistory").value.trim();
-        return `History: The patient's history, medication, and allergies are noted in the patient demographic tab. The patient's past pertinent history is: ${pastHistory ? pastHistory : "No additional history provided."}\n\n`;
+        return `History: The patient's history, medication, and allergies are noted in the patient demographic tab. The patient's past pertinent history is ${pastHistory ? pastHistory : "No additional history provided."}\n\n`;
     }
 
     function createAssessmentNarrative() {
