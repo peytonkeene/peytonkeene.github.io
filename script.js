@@ -71,10 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var skinConditions = document.getElementsByName("skinCondition");
     var selectedSkinConditions = Array.from(skinConditions).filter(condition => condition.checked).map(condition => condition.value);
     narrative += selectedSkinConditions.join(", ") || "None selected";
-    narrative += ".\n\n";
-
-    // Separator between Assessment and Transport sections
-    narrative += "----------------------------------------\n\n";
+    narrative += ".\n\n================================================================\n\n";  // Separator line
 
     // Transport section
     narrative += "Transport:\n";
