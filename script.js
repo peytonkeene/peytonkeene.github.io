@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
         generateNarrative();
     }
 
-    // Narrative generation for all sections
     function generateNarrative() {
         let narrative = createDispatchNarrative() +
                         createArrivalNarrative() +
@@ -36,8 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         (painCheck.checked ? createPainNarrative() : '') +
                         createHistoryNarrative() +
                         createAssessmentNarrative() +
-                        (transportToggle.checked ? createTransportNarrative() : '') +
                         createTreatmentNarrative() +
+                        (transportToggle.checked ? createTransportNarrative() : '') +
                         (refusalToggle.checked ? createRefusalNarrative() : '');
         updateNarrative(narrative);
     }
