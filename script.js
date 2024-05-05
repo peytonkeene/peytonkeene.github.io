@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Define narrative creation functions for each section
     function createDispatchNarrative() {
-        return `Dispatch: EC ${document.getElementById("emergenceCare").value} was dispatched and responded ${document.getElementById("responseType").value} for: ${document.getElementById("dispatchDescription").value}.\n\n`;
+        return `Dispatch: EC ${document.getElementById("emergenceCare").value} was dispatched and responded to the above location ${document.getElementById("responseType").value} for ${document.getElementById("dispatchDescription").value}.\n\n`;
     }
 
    function createArrivalNarrative() {
