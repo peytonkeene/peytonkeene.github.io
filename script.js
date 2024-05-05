@@ -93,8 +93,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createHistoryNarrative() {
-        return `History: ${document.getElementById("pastHistory").value}.\n\n`;
-    }
+    const pastHistory = document.getElementById("pastHistory").value.trim();
+
+    return `History: The patient's history, medication, and allergies are noted in the patient demographic tab. The patient's past pertinent history is: ${pastHistory ? pastHistory : "No additional history provided."}\n\n`;
+}
 
     function createAssessmentNarrative() {
     const patientOrientation = document.getElementById("patientOrientation").options[document.getElementById("patientOrientation").selectedIndex].text;
