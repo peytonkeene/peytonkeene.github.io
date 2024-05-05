@@ -108,16 +108,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function createTreatmentNarrative() {
-        const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
-        if (treatmentCheckboxes.length > 0) {
-            const treatments = Array.from(treatmentCheckboxes).map(checkbox => {
-                return checkbox.nextElementSibling ? checkbox.nextElementSibling.textContent.trim() : 'Unknown treatment';
-            }).join(", ");
-            return treatments ? `Treatment: ${treatments}.\n\n` : 'Treatment: None.\n\n';
-        } else {
-            return 'Treatment: None.\n\n';
-        }
+    const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
+    if (treatmentCheckboxes.length > 0) {
+        const treatments = Array.from(treatmentCheckboxes).map(checkbox => {
+            // Check if the next sibling element exists and has text content
+            if (checkbox.nextElementSibling && checkbox.nextElementSibling.textContent) {
+                return checkbox.nextElementSibling.textContent.trim();
+            } else {
+                console.error('Missing label or incorrect HTML structure for:', checkbox);
+                return 'Unknown treatment';  // Provide a fallback or handle error
+            }
+        }).join(", ");
+        return `Treatment: ${treatments}.\n\n`;
+    } else {
+        return 'Treatment: None.\n\n';
     }
+}
 
     // Attach event listeners
     painCheck.addEventListener("change", togglePainFields);
