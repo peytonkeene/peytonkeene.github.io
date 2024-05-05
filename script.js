@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
    function generateNarrative() {
-    var narrative = "";
 
     // Dispatch section
     narrative += "Dispatch: ";
