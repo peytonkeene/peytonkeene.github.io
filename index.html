@@ -383,6 +383,22 @@
                     <option value="powerOfAttorney">Power of Attorney</option>
                     <option value="legalGuardian">Legal Guardian</option>
                 </select><br>
+                <section>
+    <h2>Refusal</h2>
+    <label><input type="checkbox" id="refusalToggle">Toggle Refusal Details</label>
+    <div id="refusalDetails" style="display: none;">
+        <label for="refuser">Refuser:</label>
+        <select id="refuser">
+            <option value="patient">Patient</option>
+            <option value="powerOfAttorney">Power of Attorney</option>
+            <option value="legalGuardian">Legal Guardian</option>
+        </select><br>
+        <p>
+            Refusal: The <span id="refuserSpan">[selected refuser]</span> has refused to be transported to the hospital for further evaluation and care. The <span id="refuserSpan2">[selected refuser]</span> is oriented, clear of mind, and has the capacity to understand the presented information. The <span id="refuserSpan3">[selected refuser]</span> has verbalized full understanding of their symptoms and understands that forgoing further evaluation and/or treatment could pose a significant medical risk to the patient's life. The <span id="refuserSpan4">[selected refuser]</span> has verbalized that they understand our treatment plan, including interventions and transport destinations, and does not want these interventions currently. Furthermore, the <span id="refuserSpan5">[selected refuser]</span> acknowledges that forgoing this treatment could lead to a worsening of the condition up to and including death. The <span id="refuserSpan6">[selected refuser]</span> understands that they are free to call 911 should the condition worsen, or they later decide that they wish to be transported to the Emergency Department for further evaluation and intervention. The <span id="refuserSpan7">[selected refuser]</span> acknowledged and assumed risks and signed the EMS Refusal Form.
+        </p>
+    </div>
+</section>
+
             </div>
         </section>
 
