@@ -236,6 +236,38 @@
     <label><input type="checkbox" name="treatment" value="other">Other:</label><br>
         <textarea name="additionalTreatment" placeholder="Enter additional treatment information..."></textarea>
 </section>
+        
+        <!-- Transport Section -->
+    <section>
+        <h2>Transport</h2>
+        <label><input type="checkbox" id="transportToggle">Transport Details</label><br>
+        <div id="transportDetails" style="display: none;">
+            <label for="transportDestination">Destination:</label>
+            <select id="transportDestination">
+                <option value="stretcher">The Stretcher</option>
+                <option value="captainsChair">The Captain's Chair</option>
+                <option value="bench">The Bench</option>
+                <option value="pediatricRestraint">Pediatric Restraint System</option>
+            </select><br>
+            <label for="transportMethod">Transport Method:</label>
+            <select id="transportMethod">
+                <option value="selfAmbulation">Self Ambulation</option>
+                <option value="assistedAmbulation">Assisted Ambulation</option>
+                <option value="drawSheet">Draw Sheet Method</option>
+                <option value="stairchair">Stairchair</option>
+                <option value="backboard">Backboard</option>
+                <option value="scoopStretcher">Scoop Stretcher</option>
+            </select><br>
+            <label for="transportStatus">Transport Status:</label>
+            <select id="transportStatus">
+                <option value="nonEmergent">Non-emergent</option>
+                <option value="emergent">Emergent</option>
+                <option value="nonEmergentUpgraded">Non-emergent (upgraded to emergent)</option>
+                <option value="emergentDowngraded">Emergent (downgraded to non-emergent)</option>
+            </select><br>
+            <!-- Add more transport fields as needed -->
+        </div>
+    </section>
 
             <button type="button" id="generateButton">Generate Narrative</button>
             <button type="button" id="resetButton">Reset</button>
