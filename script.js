@@ -104,13 +104,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const destinationTransferMethodText = document.querySelector('#destinationTransferMethod option:checked').textContent;
         const careTransferText = document.querySelector('#careTransfer option:checked').textContent;
 
-    return `The patient was transferred to ${transportDestinationText} via ${transportMethodText} and secured. The patient was transported ${transportStatusText} to ${transportDestination2Text}. The patient's status ${patientStatusText}. Upon arrival at destination, the patient was transferred to ${destinationBedText} via ${destinationTransferMethodText}. EMS then provided report and obtained signatures. The patient's care was transferred to ${careTransferText}.\n\n`;
+        return `The patient was transferred to ${transportDestinationText} via ${transportMethodText} and secured. The patient was transported ${transportStatusText} to ${transportDestination2Text}. The patient's status ${patientStatusText}. Upon arrival at destination, the patient was transferred to ${destinationBedText} via ${destinationTransferMethodText}. EMS then provided report and obtained signatures. The patient's care was transferred to ${careTransferText}.\n\n`;
     }
 
-
     function createTreatmentNarrative() {
-        const treatments = Array.from(document.querySelectorAll('input[name="treatment"]:checked')).map(c => c.nextElementSibling.textContent.trim()).join(", ");
-        return treatments ? `Treatment: ${treatments}.\n\n` : 'Treatment: None.\n\n';
+        const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
+        if (treatmentCheckboxes.length > 0) {
+            const treatments = Array.from(treatmentCheckboxes).map(checkbox => {
+                return checkbox.nextElementSibling ? checkbox.nextElementSibling.textContent.trim() : 'Unknown treatment';
+            }).join(", ");
+            return treatments ? `Treatment: ${treatments}.\n\n` : 'Treatment: None.\n\n';
+        } else {
+            return 'Treatment: None.\n\n';
+        }
     }
 
     // Attach event listeners
