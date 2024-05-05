@@ -9,16 +9,19 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Function to toggle visibility of transport fields based on checkbox
-    function toggleTransportFields() {
-        var transportDetails = document.getElementById("transportDetails");
-        if (document.getElementById("transportToggle").checked) {
-            transportDetails.style.display = "block";
-        } else {
-            transportDetails.style.display = "none";
-        }
-    }
+    // Function to toggle transport details section visibility
+function toggleTransportFields() {
+    var transportDetails = document.getElementById("transportDetails");
+    var transportToggle = document.getElementById("transportToggle");
 
+    if (transportDetails && transportToggle) {
+        // Toggle visibility based on checkbox state
+        transportDetails.style.display = transportToggle.checked ? "block" : "none";
+    } else {
+        console.error("Transport details section or toggle checkbox not found.");
+    }
+}
+    
     function generateNarrative() {
         var narrative = "";
 
@@ -122,4 +125,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Call togglePainFields and toggleTransportFields to ensure initial visibility matches checkbox state
     togglePainFields();
     toggleTransportFields();
+    
+// Add event listener to the checkbox for toggling transport details
+document.addEventListener("DOMContentLoaded", function() {
+    var transportToggle = document.getElementById("transportToggle");
+    if (transportToggle) {
+        transportToggle.addEventListener("change", toggleTransportFields);
+    } else {
+        console.error("Transport toggle checkbox not found.");
+    }
 });
+
