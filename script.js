@@ -98,6 +98,30 @@ document.addEventListener("DOMContentLoaded", function() {
         return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation is ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
     }
 
+    function createTreatmentNarrative() {
+    const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
+    let treatments = [];
+
+    treatmentCheckboxes.forEach(checkbox => {
+        if (checkbox.id === "other" && checkbox.checked) {
+            // Include the text from the additionalTreatment textarea if "Other" is checked
+            const additionalTreatmentText = document.querySelector('textarea[name="additionalTreatment"]').value.trim();
+            if (additionalTreatmentText) {
+                treatments.push("Other treatment specified: " + additionalTreatmentText);
+            } else {
+                treatments.push("Other treatment not listed.");
+            }
+        } else {
+            // Use the next sibling's text content for the label description
+            const labelDescription = checkbox.nextElementSibling ? checkbox.nextElementSibling.textContent.trim() : 'Unknown treatment';
+            treatments.push(labelDescription);
+        }
+    });
+
+    // Concatenate all treatments into a single string, separated by spaces or new lines
+    return treatments.length > 0 ? `Treatment: ${treatments.join(". ")}.\n\n` : 'Treatment: None.\n\n';
+}
+
     function createTransportNarrative() {
         const transportDestinationText = document.querySelector('#transportDestination option:checked').textContent;
         const transportMethodText = document.querySelector('#transportMethod option:checked').textContent;
