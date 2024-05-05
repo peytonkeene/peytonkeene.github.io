@@ -66,8 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var skinConditionsArray = Array.from(skinConditions);
         var selectedSkinConditions = skinConditionsArray.filter(condition => condition.checked).map(condition => condition.value);
         narrative += selectedSkinConditions.join(", ") || "None selected";
-        narrative += ".\n\n";
-
          // Transport section
     if (document.getElementById("transportToggle").checked) {
         narrative += "Transport: ";
@@ -77,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         narrative += " to " + document.getElementById("transportDestination2").options[document.getElementById("transportDestination2").selectedIndex].textContent;
         narrative += ". The patient's status " + document.getElementById("patientStatus").options[document.getElementById("patientStatus").selectedIndex].textContent;
         narrative += ". The patient's vitals were obtained and the patient was reassessed as noted. Upon arrival at the destination, the patient was transferred from the stretcher to the ";
+        narrative += document.getElementById("destinationBed").value;
         narrative += document.getElementById("destinationBed").options;
         narrative += " via " + document.getElementById("destinationTransferMethod").options[document.getElementById("destinationTransferMethod").selectedIndex].textContent;
         narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to ";
