@@ -107,22 +107,28 @@ document.addEventListener("DOMContentLoaded", function() {
         return `The patient was transferred to ${transportDestinationText} via ${transportMethodText} and secured. The patient was transported ${transportStatusText} to ${transportDestination2Text}. The patient's status ${patientStatusText}. Upon arrival at destination, the patient was transferred to ${destinationBedText} via ${destinationTransferMethodText}. EMS then provided report and obtained signatures. The patient's care was transferred to ${careTransferText}.\n\n`;
     }
 
-    function createTreatmentNarrative() {
+   function createTreatmentNarrative() {
     const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
-    if (treatmentCheckboxes.length > 0) {
-        const treatments = Array.from(treatmentCheckboxes).map(checkbox => {
-            // Check if the next sibling element exists and has text content
-            if (checkbox.nextElementSibling && checkbox.nextElementSibling.textContent) {
-                return checkbox.nextElementSibling.textContent.trim();
+    let treatments = [];
+
+    treatmentCheckboxes.forEach(checkbox => {
+        if (checkbox.id === "other" && checkbox.checked) {
+            // Include the text from the additionalTreatment textarea if "Other" is checked
+            const additionalTreatmentText = document.querySelector('textarea[name="additionalTreatment"]').value.trim();
+            if (additionalTreatmentText) {
+                treatments.push("Other treatment specified: " + additionalTreatmentText);
             } else {
-                console.error('Missing label or incorrect HTML structure for:', checkbox);
-                return 'Unknown treatment';  // Provide a fallback or handle error
+                treatments.push("Other treatment not listed.");
             }
-        }).join(", ");
-        return `Treatment: ${treatments}.\n\n`;
-    } else {
-        return 'Treatment: None.\n\n';
-    }
+        } else {
+            // Use the next sibling's text content for the label description
+            const labelDescription = checkbox.nextElementSibling ? checkbox.nextElementSibling.textContent.trim() : 'Unknown treatment';
+            treatments.push(labelDescription);
+        }
+    });
+
+    // Concatenate all treatments into a single string, separated by spaces or new lines
+    return treatments.length > 0 ? `Treatment: ${treatments.join(". ")}.\n\n` : 'Treatment: None.\n\n';
 }
 
     // Attach event listeners
