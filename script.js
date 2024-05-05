@@ -38,8 +38,37 @@ document.addEventListener("DOMContentLoaded", function() {
         narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
         narrative += ". The patient appears " + document.getElementById("patientAppearance").value + "\n\n";
 
+         // Chief Complaint section
+        narrative += "Chief Complaint: " + document.getElementById("chiefComplaint").value + ".\n\n";
+
+        // Pain section
+        if (document.getElementById("painCheck").checked) {
+            narrative += "Pain: Onset: " + document.getElementById("painOnset").value;
+            narrative += ", Provocation: " + document.getElementById("provocationWhat").value;
+            narrative += " makes the pain " + document.getElementById("provocationEffect").value;
+            narrative += ", Quality: " + document.getElementById("painQuality").value;
+            narrative += ", Radiation: " + document.getElementById("painRadiation").value;
+            narrative += ", Severity: " + document.getElementById("painSeverity").value;
+            narrative += ", Time: " + document.getElementById("painDuration").value + " " + document.getElementById("painTimeUnit").value + ".\n\n";
+        }
+
+        // History section
+        narrative += "History: " + document.getElementById("pastHistory").value + ".\n\n";
+
+        // Assessment section
+        narrative += "Assessment: The patient is " + document.getElementById("patientOrientation").value;
+        narrative += ". The patient's airway is " + document.getElementById("patientAirway").value;
+        narrative += ". The patient's breathing is " + document.getElementById("patientBreathing").value;
+        narrative += ". The patient's circulation is " + document.getElementById("patientCirculation").value;
+        narrative += ". Skin conditions: ";
+        var skinConditions = document.getElementsByName("skinCondition");
+        var selectedSkinConditions = Array.from(skinConditions).filter(condition => condition.checked).map(condition => condition.value);
+        narrative += selectedSkinConditions.join(", ") || "None selected";
+        narrative += ".\n\n";
+
+        
         // Transport section
-         console.log("Getting arrival values...");
+         console.log("Getting transport values...");
         if (document.getElementById("transportToggle").checked) {
             narrative += "Transport: The patient was transferred to " + document.getElementById("transportDestination").value;
             narrative += " via " + document.getElementById("transportMethod").value;
