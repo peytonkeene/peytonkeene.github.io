@@ -22,7 +22,7 @@ form {
     border: 2px solid navy;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     width: 90%;
-    max-width: 800px; /* Wider form for better desktop view */
+    max-width: 960px; /* Increased maximum width for better desktop presentation */
     box-sizing: border-box;
 }
 
@@ -79,7 +79,7 @@ a:hover {
 @media (min-width: 768px) {
     form {
         padding: 40px;
-        width: 60%; /* Adjust width for desktop */
+        width: 70%; /* Wider form on desktops */
     }
 
     input[type="checkbox"], label {
