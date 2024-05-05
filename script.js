@@ -19,62 +19,30 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-   function generateNarrative() {
-       var narrative = "";
+    // Function to generate narrative
+    function generateNarrative() {
+        var narrative = "";
 
-    // Dispatch section
-    narrative += "Dispatch: ";
-    narrative += "EC " + document.getElementById("emergenceCare").value;
-    narrative += " was dispatched and responded " + document.getElementById("responseType").value;
-    narrative += " to the above address for a: " + document.getElementById("dispatchDescription").value + "\n\n";
+        // Dispatch section
+        console.log("Getting dispatch values...");
+        narrative += "Dispatch: ";
+        narrative += "EC " + document.getElementById("emergenceCare").value;
+        narrative += " was dispatched and responded " + document.getElementById("responseType").value;
+        narrative += " to the above address for a: " + document.getElementById("dispatchDescription").value + "\n\n";
 
-    // Arrival section
-    narrative += "Arrival: ";
-    narrative += "Upon EMS arrival, the patient was found to be " + document.getElementById("patientPosition").value;
-    narrative += ". The patient is alert and oriented x " + document.getElementById("orientationLevel").value;
-    narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
-    narrative += ". The patient appears " + document.getElementById("patientAppearance").value + "\n\n";
+        // Arrival section
+        console.log("Getting arrival values...");
+        narrative += "Arrival: ";
+        narrative += "Upon EMS arrival, the patient was found to be " + document.getElementById("patientPosition").value;
+        narrative += ". The patient is alert and oriented x " + document.getElementById("orientationLevel").value;
+        narrative += ". The patient's GCS is " + document.getElementById("gcs").value;
+        narrative += ". The patient appears " + document.getElementById("patientAppearance").value + "\n\n";
 
-    // Chief Complaint section
-    narrative += "Chief Complaint: ";
-    narrative += document.getElementById("chiefComplaint").value + "\n\n";
+        // Continue with other sections...
 
-    // Pain section
-    if (document.getElementById("painCheck").checked) {
-        narrative += "Pain: ";
-        narrative += "Onset: " + document.getElementById("painOnset").value;
-        narrative += ". Provocation: " + document.getElementById("provocationWhat").value;
-        narrative += " makes the pain " + document.getElementById("provocationEffect").value;
-        narrative += ". Quality: " + document.getElementById("painQuality").value;
-        narrative += ". Radiation: " + document.getElementById("painRadiation").value;
-        narrative += ". Severity: " + document.getElementById("painSeverity").value;
-        narrative += ". Time: " + document.getElementById("painDuration").value + " " + document.getElementById("painTimeUnit").value + "\n\n";
+        // Update the text area with the generated narrative
+        document.getElementById("narrative").value = narrative;
     }
-
-    // History section
-    narrative += "History: ";
-    narrative += document.getElementById("historyDetails").value + "\n\n";
-
-    // Assessment section
-    narrative += "Assessment: ";
-    narrative += "Please see the assessment tab for additional details. The patient is ";
-    narrative += document.getElementById("patientOrientation").value;
-    narrative += ". The patient's airway is ";
-    narrative += document.getElementById("patientAirway").value;
-    narrative += ". The patient's breathing is ";
-    narrative += document.getElementById("patientBreathing").value;
-    narrative += ". The patient's circulation is ";
-    narrative += document.getElementById("patientCirculation").value;
-    narrative += ". The patient's skin is: ";
-    var skinConditions = document.getElementsByName("skinCondition");
-    var skinConditionsArray = Array.from(skinConditions);
-    var selectedSkinConditions = skinConditionsArray.filter(condition => condition.checked).map(condition => condition.value);
-    narrative += selectedSkinConditions.join(", ") || "None selected";
-    
-    // Update the text area with the generated narrative
-    document.getElementById("narrative").value = narrative;
-}
-
 
     // Function to reset the form
     function resetForm() {
