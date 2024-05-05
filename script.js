@@ -92,13 +92,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Event listeners
-    document.getElementById("generateButton").addEventListener("click", generateNarrative);
     document.getElementById("resetButton").addEventListener("click", resetForm);
     document.getElementById("copyButton").addEventListener("click", copyToClipboard);
     document.getElementById("painCheck").addEventListener("change", togglePainFields);
-    document.getElementById("transportCheck").addEventListener("change", toggleTransportFields);
+    document.getElementById("transportToggle").addEventListener("change", toggleTransportFields);
 
-    // Initialize pain and transport fields visibility
+    // Initialize pain fields visibility
     togglePainFields();
+    // Initialize transport fields visibility
     toggleTransportFields();
 });
