@@ -16,11 +16,11 @@ h1, h2 {
 form {
     background-color: white;
     padding: 20px;
-    margin: 20px auto;
     border: 2px solid navy; /* Navy blue border */
-    width: 90%;
-    max-width: 600px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow for depth */
+    margin: 20px;
+    width: auto; /* Adjust width based on screen size */
+    max-width: 600px; /* Maximum width */
 }
 
 /* Label styling for inline display with checkboxes */
@@ -36,20 +36,20 @@ input[type="text"], input[type="checkbox"], select, textarea {
     padding: 8px;
     margin-top: 5px;
     margin-bottom: 10px;
-    border: 1px solid #ddd; /* Light grey border */
+    border: 1px solid #ddd;
     box-sizing: border-box;
 }
 
 /* Specific styles for checkboxes to align properly with labels */
 input[type="checkbox"] {
     vertical-align: middle;
-    margin-top: 0; /* Adjust alignment with the label */
+    margin-top: 0;
     cursor: pointer;
 }
 
 /* Button styles */
 button {
-    background-color: navy; /* Navy blue background */
+    background-color: navy;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -58,25 +58,33 @@ button {
     transition: background-color 0.3s ease;
 }
 
-/* Hover effect for buttons */
 button:hover {
-    background-color: orange; /* Orange background on hover */
+    background-color: orange;
 }
 
 /* Link styles */
 a {
-    color: orange; /* Orange color for links */
+    color: orange;
     text-decoration: none;
 }
 
-/* Hover effect for links */
 a:hover {
     text-decoration: underline;
 }
 
-/* Additional styling for section titles, if needed */
-.section-title {
-    background-color: navy; /* Navy blue background for section titles */
-    color: white;
-    padding: 5px 10px;
+/* Responsive styling */
+@media (min-width: 768px) {
+    form {
+        padding: 40px; /* More padding on larger screens */
+        margin: 20px auto; /* Centered on the page */
+        width: 50%; /* Form takes up half of the screen width */
+    }
+}
+
+@media (max-width: 767px) {
+    form {
+        padding: 20px;
+        margin: 0; /* Less margin on smaller screens */
+        width: 100%; /* Form takes full width on small screens */
+    }
 }
