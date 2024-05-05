@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
             transportFields.style.display = "none";
         }
     }
-   function generateNarrative() {
+  function generateNarrative() {
     console.log("Generating narrative");
     var narrative = "";
 
@@ -71,7 +71,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var skinConditions = document.getElementsByName("skinCondition");
     var selectedSkinConditions = Array.from(skinConditions).filter(condition => condition.checked).map(condition => condition.value);
     narrative += selectedSkinConditions.join(", ") || "None selected";
-    narrative += ".\n\n----------------------------------------\n\n";  // Horizontal line for clear separation
+    narrative += ".\n\n";
+
+    // Separator between Assessment and Transport sections
+    narrative += "----------------------------------------\n\n";
 
     // Transport section
     narrative += "Transport:\n";
@@ -90,8 +93,11 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         narrative += "The patient refused transportation, please see the refusal section.\n\n";
     }
-        // Update the text area with the generated narrative
-        document.getElementById("narrative").value = narrative;
+
+    // Update the textarea with the generated narrative
+    document.getElementById("narrative").value = narrative;
+}
+
     }
     // Function to reset the form
     function resetForm() {
