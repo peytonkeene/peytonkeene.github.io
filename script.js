@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let skinConditions = Array.from(skinConditionCheckboxes).map(checkbox => checkbox.value).join(", ");
     skinConditions = skinConditions || "no notable conditions";  // Provide a default if no checkboxes are checked
 
-    return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation is ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
+    return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
 }
 
     function createTransportNarrative() {
