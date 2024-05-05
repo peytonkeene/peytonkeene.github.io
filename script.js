@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             painFields.style.display = "none";
         }
+        generateNarrative(); // Call generateNarrative whenever pain fields are toggled
     }
 
     // Function to toggle visibility of transport fields based on checkbox
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             transportFields.style.display = "none";
         }
+        generateNarrative(); // Call generateNarrative whenever transport fields are toggled
     }
 
     // Function to generate the narrative
@@ -68,25 +70,23 @@ document.addEventListener("DOMContentLoaded", function() {
         narrative += document.getElementById("patientCirculation").value;
         narrative += ". The patient's skin is: ";
         var skinConditions = document.getElementsByName("skinCondition");
-        var selectedSkinConditions = Array.from(skinConditions).filter(condition => condition.checked).map(condition => condition.value);
+        var skinConditionsArray = Array.from(skinConditions);
+        var selectedSkinConditions = skinConditionsArray.filter(condition => condition.checked).map(condition => condition.value);
         narrative += selectedSkinConditions.join(", ") || "None selected";
-        narrative += "\n\n";
 
         // Transport section
         if (document.getElementById("transportToggle").checked) {
-            narrative += "Transport: ";
-            narrative += "The patient was transferred to " + document.getElementById("transportDestination").value;
-            narrative += " via " + document.getElementById("transportMethod").value;
-            narrative += ". The patient was transported " + document.getElementById("transportStatus").value;
-            narrative += " to " + document.getElementById("transportFacility").value;
-            narrative += ". The patient's status " + document.getElementById("patientStatus").value;
-            narrative += ". Upon arrival at the destination, the patient was transferred from the stretcher to the ";
-            narrative += document.getElementById("patientTransferLocation").value;
-            narrative += " via " + document.getElementById("patientTransferMethod").value;
-            narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to ";
-            narrative += document.getElementById("careTransfer").value + "\n\n";
+            narrative += "\n\nTransport: ";
+            narrative += "The patient was transferred to " + document.getElementById("transportDestination").options[document.getElementById("transportDestination").selectedIndex].text;
+            narrative += " via " + document.getElementById("transportMethod").options[document.getElementById("transportMethod").selectedIndex].text;
+            narrative += ". The patient was transported " + document.getElementById("transportStatus").options[document.getElementById("transportStatus").selectedIndex].text;
+            narrative += " to " + document.getElementById("transportLocation").options[document.getElementById("transportLocation").selectedIndex].text;
+            narrative += ". The patient's status " + document.getElementById("transportPatientStatus").options[document.getElementById("transportPatientStatus").selectedIndex].text;
+            narrative += ". The patient's vitals were obtained and the patient was reassessed as noted. Upon arrival at the destination, the patient was transferred from the stretcher to the " + document.getElementById("transferLocation").options[document.getElementById("transferLocation").selectedIndex].text;
+            narrative += " via " + document.getElementById("transferMethod").options[document.getElementById("transferMethod").selectedIndex].text;
+            narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to " + document.getElementById("careTransferredTo").options[document.getElementById("careTransferredTo").selectedIndex].text;
         } else {
-            narrative += "Transport: The patient refused transportation, please see the refusal section.\n\n";
+            narrative += "\n\nTransport: The patient refused transportation, please see the refusal section.";
         }
 
         // Update the text area with the generated narrative
