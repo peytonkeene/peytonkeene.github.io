@@ -79,24 +79,20 @@ document.addEventListener("DOMContentLoaded", function() {
          // Transport section
     narrative += "\n\nTransport: ";
     if (document.getElementById("transportToggle").checked) {
-        narrative += "The patient was transferred to ";
-        narrative += document.getElementById("transportDestination").value;
-        narrative += " via ";
-        narrative += document.getElementById("transportMethod").value;
-        narrative += ". The patient was transported ";
-        narrative += document.getElementById("transportStatus").value;
-        narrative += " to ";
-        narrative += document.getElementById("transportDestination2").value;
-        narrative += ". The patient's status ";
-        narrative += document.getElementById("patientStatus").value;
+        narrative += "Transport: ";
+        narrative += "The patient was transferred to " + document.getElementById("transportDestination").value;
+        narrative += " via " + document.getElementById("transportMethod").value;
+        narrative += ". The patient was transported " + document.getElementById("transportStatus").value;
+        narrative += " to " + document.getElementById("transportDestination2").value;
+        narrative += ". The patient's status " + document.getElementById("patientStatus").value;
         narrative += ". The patient's vitals were obtained and the patient was reassessed as noted. Upon arrival at the destination, the patient was transferred from the stretcher to the ";
         narrative += document.getElementById("destinationBed").value;
-        narrative += " via ";
-        narrative += document.getElementById("destinationTransferMethod").value;
+        narrative += " via " + document.getElementById("destinationTransferMethod").value;
         narrative += " and secured. EMS provided report and obtained signatures. The patient's care was transferred to ";
         narrative += document.getElementById("careTransfer").value;
+        narrative += ".\n\n";
     } else {
-        narrative += "The patient was not transported, see refusal section.";
+        narrative += "The patient refused transportation, please see the refusal section.\n\n";
     }
         // Update the text area with the generated narrative
         document.getElementById("narrative").value = narrative;
