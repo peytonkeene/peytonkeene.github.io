@@ -102,8 +102,9 @@
             const patientBreathing = document.getElementById("patientBreathing").options[document.getElementById("patientBreathing").selectedIndex].text;
             const patientCirculation = document.getElementById("patientCirculation").options[document.getElementById("patientCirculation").selectedIndex].text;
             const skinConditions = Array.from(document.querySelectorAll('input[name="skinCondition"]:checked')).map(checkbox => checkbox.value).join(", ");
-            return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation is ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
+            return `Assessment: The full assessment is noted in the assessment tab of this PCR. The patient is ${patientOrientation}. The patient's airway is ${patientAirway}. The patient's breathing is ${patientBreathing}. The patient's circulation ${patientCirculation}. The patient's skin is ${skinConditions}.\n\n`;
         }
+
 
         function createTreatmentNarrative() {
             const treatmentCheckboxes = document.querySelectorAll('input[name="treatment"]:checked');
