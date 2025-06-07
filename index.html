@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garrard County EMA</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Garrard County Emergency Management Agency</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#alerts">Alerts</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h2>Prepared. Responsive. Resilient.</h2>
+            <p>Keeping Garrard County safe through proactive emergency management.</p>
+            <button onclick="scrollToSection('alerts')">View Active Alerts</button>
+        </section>
+
+        <section id="about" class="info-section">
+            <h2>About Us</h2>
+            <p>Garrard County EMA coordinates disaster planning, response, and recovery to safeguard our community. We work with local, state, and federal partners to ensure public safety during all types of emergencies.</p>
+        </section>
+
+        <section id="alerts" class="alerts-section">
+            <h2>Emergency Alerts for Garrard County, KY</h2>
+            <div id="alert-feed">
+                <p>Loading alerts...</p>
+            </div>
+        </section>
+
+        <section id="resources" class="info-section">
+            <h2>Preparedness Resources</h2>
+            <ul>
+                <li><a href="#">Severe Weather Tips</a></li>
+                <li><a href="#">Disaster Supply Kit Guide</a></li>
+                <li><a href="#">Shelter Locations</a></li>
+                <li><a href="#">Volunteer & CERT</a></li>
+            </ul>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Garrard County EMA. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
