@@ -1,0 +1,226 @@
+/* Modern CSS for EMS Narrative Generator */
+
+/* Root variables for color scheme and common values */
+:root {
+  --primary-color: #0077cc;      /* Deep blue */
+  --secondary-color: #00aaff;    /* Bright blue accent */
+  --accent-color: #ff6b6b;       /* Accent (e.g., error or emphasis) */
+  --background-color: #f5f7fa;   /* Light background */
+  --text-color: #333;            /* Dark text */
+  --border-color: #e0e0e0;       /* Soft border */
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+header {
+  background-color: #ffffff;
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+header .logo {
+  max-height: 40px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+nav {
+  margin-top: 10px;
+}
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 0 10px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+nav a:hover {
+  color: #007bff;
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Headings */
+h1, h2, h3 {
+  margin: 0 0 20px;
+  font-weight: 700;
+}
+
+/* Tabs */
+.tab {
+  display: none;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: var(--shadow);
+}
+.tab.active {
+  display: block;
+}
+
+/* Tab buttons */
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tab-buttons button {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.tab-buttons button:hover {
+  background-color: var(--secondary-color);
+}
+.tab-buttons button.active {
+  background-color: var(--secondary-color);
+  font-weight: 700;
+}
+
+/* Narrative output */
+.narrative-output {
+  white-space: pre-wrap;
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+/* Form elements */
+label {
+  display: block;
+  margin: 15px 0 5px;
+  font-size: 0.9em;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Treatment bubble options */
+.treatment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.bubble-option {
+  padding: 15px 20px;
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 50px; /* Pill shape */
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: var(--shadow);
+  font-size: 0.9em;
+}
+.bubble-option:hover {
+  transform: translateY(-2px);
+}
+.bubble-option.active {
+  background-color: var(--secondary-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Medication Popup Modal Styles */
+#medicationPopup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+#medicationPopup .popup-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+#medicationPopup .close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--accent-color);
+}
+
+/* Medication Popup Add Button */
+#medicationPopup button.add-medication {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+#medicationPopup button.add-medication:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Modern Generate Narrative Button */
+#generateBtn {
+  padding: 14px 24px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  text-align: center;
+  margin-top: 20px;
+}
+#generateBtn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}

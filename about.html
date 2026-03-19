@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MedNarrate</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --bg: #edf3f6;
+            --surface: rgba(255, 255, 255, 0.94);
+            --text: #18242d;
+            --text-soft: #5f7180;
+            --label: #536575;
+            --brand: #0f5f7a;
+            --brand-strong: #0b4d63;
+            --brand-soft: #e3f1f6;
+            --brand-border: #bed8e1;
+            --border: rgba(215, 227, 233, 0.96);
+            --shadow: 0 20px 50px rgba(15, 42, 56, 0.10);
+            --shadow-soft: 0 10px 28px rgba(15, 42, 56, 0.08);
+            --radius-xl: 24px;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(15, 95, 122, 0.10), transparent 28rem),
+                radial-gradient(circle at top right, rgba(17, 94, 89, 0.08), transparent 24rem),
+                linear-gradient(180deg, #f8fbfc 0%, var(--bg) 48%, #e8f0f4 100%);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        a { color: inherit; }
+        .container { width: min(1200px, calc(100% - 32px)); margin: 0 auto; }
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            border-bottom: 1px solid rgba(196, 210, 219, 0.75);
+            background: rgba(248, 251, 252, 0.88);
+            backdrop-filter: blur(18px) saturate(160%);
+        }
+        .nav {
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            text-decoration: none;
+        }
+        .brand img {
+            height: 52px;
+            padding: 6px;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: var(--shadow-soft);
+        }
+        .eyebrow {
+            display: inline-flex;
+            margin-bottom: 4px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--brand-border);
+            background: rgba(227, 241, 246, 0.75);
+            color: var(--brand-strong);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .brand h1 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.18s ease;
+        }
+        nav a:hover,
+        nav a.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-strong));
+            box-shadow: 0 10px 24px rgba(15, 95, 122, 0.22);
+        }
+        main { flex: 1; padding: 28px 0 40px; }
+        .page-stack { display: grid; gap: 22px; }
+        .hero-card,
+        .card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+        }
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(15, 95, 122, 0.98), rgba(10, 64, 90, 0.94));
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            inset: auto -8% -45% auto;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+        }
+        .hero-card h2 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+        .hero-card p {
+            margin: 0;
+            max-width: 64ch;
+            color: rgba(255, 255, 255, 0.84);
+        }
+        .card {
+            position: relative;
+            padding: 26px;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+        }
+        .section-label {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: var(--label);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        h3 {
+            margin: 0 0 12px;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        p {
+            margin: 0 0 16px;
+            color: var(--text-soft);
+            font-size: 1rem;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(250px, 0.8fr);
+            gap: 22px;
+        }
+        .value-list {
+            display: grid;
+            gap: 14px;
+        }
+        .value-item {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: linear-gradient(180deg, #fff, #f8fbfd);
+        }
+        .value-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.98rem;
+        }
+        .watermark {
+            position: absolute;
+            inset: auto -32px -40px auto;
+            width: 200px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        footer {
+            border-top: 1px solid rgba(196, 210, 219, 0.85);
+            background: rgba(18, 32, 43, 0.96);
+            color: rgba(255, 255, 255, 0.82);
+        }
+        footer .container {
+            padding: 18px 16px;
+            text-align: center;
+            font-size: 0.92rem;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            margin: 0 8px;
+        }
+        @media (max-width: 960px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .nav { min-height: auto; padding: 14px 0; flex-direction: column; align-items: flex-start; }
+            nav { width: 100%; }
+        }
+        @media (max-width: 640px) {
+            .container { width: min(100% - 20px, 1200px); }
+            .hero-card, .card { padding: 20px; }
+            .brand img { height: 46px; }
+            nav a { padding: 9px 12px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav">
+            <a class="brand" href="index.html">
+                <img alt="MedNarrate Logo" src="images/logo.png">
+                <div>
+                    <span class="eyebrow">MedNarrate Clinical Workflow</span>
+                    <h1>MedNarrate Documentation Platform</h1>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a class="active" href="about.html">About</a>
+                <a href="solutions.html">Solutions</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html">Log In</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container page-stack">
+            <section class="hero-card">
+                <span class="eyebrow">About MedNarrate</span>
+                <h2>Designed by EMS experience, built for better documentation workflows.</h2>
+                <p>MedNarrate was created to reduce documentation burden for providers while improving the consistency, clarity, and completeness of patient care narratives across agencies.</p>
+            </section>
+
+            <section class="content-grid">
+                <article class="card">
+                    <span class="section-label">Our Mission</span>
+                    <h3>Helping providers spend more time on patient care and less time on paperwork.</h3>
+                    <p>MedNarrate is a leading provider of narrative generation solutions for EMS providers. Our mission is to streamline the documentation process, enabling healthcare professionals to focus more on patient care and less on paperwork.</p>
+                    <p>Founded by Peyton Keene, a paramedic and website developer, MedNarrate understands the unique challenges EMS providers face. Our platform is designed to reduce the time spent on documentation while ensuring that narratives are thorough, accurate, and compliant with industry standards.</p>
+                    <p>With MedNarrate, EMS teams can quickly generate narratives that capture all essential details, improving both the quality of patient care and the efficiency of operations. Our commitment to innovation and user-friendly design makes MedNarrate the go-to solution for EMS providers nationwide.</p>
+                    <p>Join us in revolutionizing EMS documentation and discover how MedNarrate can help your team work smarter, not harder.</p>
+                    <img class="watermark" src="images/logo.png" alt="">
+                </article>
+
+                <aside class="card">
+                    <span class="section-label">Platform Values</span>
+                    <div class="value-list">
+                        <div class="value-item">
+                            <strong>Operational Clarity</strong>
+                            <span>Structured workflows that help crews document the right details faster.</span>
+                        </div>
+                        <div class="value-item">
+                            <strong>Clinical Consistency</strong>
+                            <span>Narratives built to support thorough charting and agency-level documentation standards.</span>
+                        </div>
+                        <div class="value-item">
+                            <strong>Provider-Centered Design</strong>
+                            <span>Tools shaped around the realities of EMS reporting, not generic office software.</span>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            &copy; 2024 MedNarrate. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

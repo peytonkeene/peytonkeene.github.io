@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Created - MedNarrate</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --bg: #edf3f6;
+            --surface: rgba(255, 255, 255, 0.94);
+            --surface-soft: #f6fafc;
+            --text: #18242d;
+            --text-soft: #5f7180;
+            --label: #536575;
+            --brand: #0f5f7a;
+            --brand-strong: #0b4d63;
+            --brand-border: #bed8e1;
+            --border: rgba(215, 227, 233, 0.96);
+            --success-bg: #e6f7ef;
+            --success-border: #b9e1cf;
+            --success-text: #1d6e4e;
+            --shadow: 0 20px 50px rgba(15, 42, 56, 0.10);
+            --shadow-soft: 0 10px 28px rgba(15, 42, 56, 0.08);
+            --radius-xl: 24px;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, Roboto, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(15, 95, 122, 0.10), transparent 28rem),
+                radial-gradient(circle at top right, rgba(17, 94, 89, 0.08), transparent 24rem),
+                linear-gradient(180deg, #f8fbfc 0%, var(--bg) 48%, #e8f0f4 100%);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        a { color: inherit; }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            border-bottom: 1px solid rgba(196, 210, 219, 0.75);
+            background: rgba(248, 251, 252, 0.88);
+            backdrop-filter: blur(18px) saturate(160%);
+        }
+
+        .nav-shell {
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .brand img {
+            height: 52px;
+            width: auto;
+            padding: 6px;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .brand-copy h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            margin-bottom: 4px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--brand-border);
+            background: rgba(227, 241, 246, 0.75);
+            color: var(--brand-strong);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            color: var(--text-soft);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.18s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-strong));
+            box-shadow: 0 10px 24px rgba(15, 95, 122, 0.22);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 0 48px;
+        }
+
+        .confirmation-shell {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirmation-card {
+            width: min(720px, 100%);
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confirmation-card::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -90px auto;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15, 95, 122, 0.10), rgba(15, 95, 122, 0));
+            pointer-events: none;
+        }
+
+        .success-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--success-border);
+            background: var(--success-bg);
+            color: var(--success-text);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .confirmation-card h2 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+        }
+
+        .confirmation-card p {
+            margin: 0 auto;
+            max-width: 46ch;
+            color: var(--text-soft);
+            font-size: 1rem;
+        }
+
+        .button-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 26px;
+        }
+
+        .primary-button,
+        .secondary-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: background-color 0.18s ease, transform 0.14s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+
+        .primary-button {
+            border: 1px solid transparent;
+            background: linear-gradient(135deg, var(--brand), var(--brand-strong));
+            color: #fff;
+            box-shadow: 0 16px 32px rgba(15, 95, 122, 0.20);
+        }
+
+        .secondary-link {
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text-soft);
+        }
+
+        .primary-button:hover,
+        .secondary-link:hover {
+            transform: translateY(-1px);
+        }
+
+        .secondary-link:hover {
+            background: #f8fbfd;
+            border-color: var(--brand-border);
+        }
+
+        footer {
+            border-top: 1px solid rgba(196, 210, 219, 0.85);
+            background: rgba(18, 32, 43, 0.96);
+            color: rgba(255,255,255,0.82);
+        }
+
+        footer .container {
+            padding: 18px 16px;
+            text-align: center;
+            font-size: 0.92rem;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+            margin: 0 8px;
+        }
+
+        @media (max-width: 860px) {
+            .nav-shell {
+                min-height: auto;
+                padding: 14px 0;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav { width: 100%; }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                width: min(100% - 20px, 1180px);
+            }
+
+            .confirmation-card {
+                padding: 24px 20px;
+            }
+
+            .brand img {
+                height: 46px;
+            }
+
+            nav a {
+                padding: 9px 12px;
+                font-size: 0.9rem;
+            }
+
+            .primary-button,
+            .secondary-link {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-shell">
+            <a class="brand" href="index.html">
+                <img src="images/logo.png" alt="MedNarrate Logo">
+                <div class="brand-copy">
+                    <span class="eyebrow">MedNarrate Admin Workspace</span>
+                    <h1>User Created</h1>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a class="active" href="admin_dashboard.html">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container confirmation-shell">
+            <section class="confirmation-card">
+                <div class="success-pill">Success</div>
+                <h2>User Created Successfully</h2>
+                <p>The new user account has been successfully added to the system and is ready for use.</p>
+
+                <div class="button-row">
+                    <a href="admin_dashboard.html" class="primary-button">Return to Dashboard</a>
+                    <a href="add_users.html" class="secondary-link">Add Another User</a>
+                    <a href="manage_users.php" class="secondary-link">Manage Users</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            &copy; 2024 MedNarrate. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

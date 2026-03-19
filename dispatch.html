@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hospital Transfer Call Intake</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+  <style>
+    :root { --card:#121a2b; --muted:#93a4c7; --text:#e8eefc; --accent:#4ea1ff; --danger:#ff5a6a; }
+    *{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body{ margin:0; background:linear-gradient(180deg,#081022,#0b1220); color:var(--text); }
+
+    header{
+      position:sticky; top:0; z-index:20;
+      background:rgba(18,26,43,.95);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter:saturate(180%) blur(8px);
+    }
+    .container{ max-width:1100px; margin:0 auto; padding:14px 16px; }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .brand img{ height:44px; width:auto; }
+    .brand h1{ margin:0; font-size:16px; letter-spacing:.2px; }
+    .brand p{ margin:2px 0 0; color:var(--muted); font-size:12px; }
+
+    main{ max-width:1100px; margin:0 auto; padding:12px 16px 24px; display:grid; gap:14px; grid-template-columns: 1.1fr .9fr; }
+    @media (max-width: 980px){ main{ grid-template-columns:1fr; } }
+
+    .card{ background:rgba(18,26,43,.9); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:14px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    .grid{ display:grid; gap:10px; grid-template-columns: repeat(12, 1fr); }
+    .field{ grid-column: span 6; }
+    .field.small{ grid-column: span 3; }
+    .field.full{ grid-column: span 12; }
+
+    label{ display:block; font-size:12px; color:var(--muted); margin:0 0 6px; }
+    input, select, textarea{
+      width:100%; padding:10px 10px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.10); outline:none;
+      background:#0c1426; color:var(--text);
+    }
+    textarea{ min-height:88px; resize:vertical; }
+
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,.14);
+      background:#0c1426;
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      user-select:none;
+      font-size:13px;
+      line-height:1;
+      transition: border-color .12s ease, box-shadow .12s ease, transform .05s ease;
+    }
+    .pill:active{ transform: translateY(1px); }
+    .pill input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+      width:1px; height:1px;
+    }
+    .pill.active{
+      border-color: rgba(78,161,255,.85);
+      box-shadow: 0 0 0 3px rgba(78,161,255,.18) inset;
+    }
+
+    .section-title{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 10px; }
+    .badge{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14); background:#0c1426; color:var(--muted);
+    }
+    .badge strong{ color:var(--text); }
+
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    button{
+      border:1px solid rgba(255,255,255,.14); background:#0c1426; color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:600;
+    }
+    button.primary{ background: linear-gradient(180deg, rgba(78,161,255,.25), rgba(78,161,255,.08)); border-color: rgba(78,161,255,.5); }
+    button.danger{ border-color: rgba(255,90,106,.5); background: linear-gradient(180deg, rgba(255,90,106,.25), rgba(255,90,106,.08)); }
+
+    .hint{ color:var(--muted); font-size:12px; margin-top:8px; }
+    .ok{ color:#78f5b5; }
+    .warn{ color:#ffd47a; }
+    .err{ color:var(--danger); }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+    /* ✅ Right-side copy button alignment */
+    .right-actions{ display:flex; gap:10px; align-items:center; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="images/logo.png" alt="Logo" />
+        <div>
+          <h1>Hospital Transfer Call Intake</h1>
+          <p>Quick intake • Auto logic • Copy to CAD</p>
+        </div>
+      </div>
+      <span class="badge">Call Time: <strong id="callTime"></strong></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="grid">
+        <div class="field">
+          <label>Sending Facility</label>
+          <select id="sendingFacility">
+            <option value="">Select…</option>
+            <option>Saint Joseph Berea</option>
+            <option>Baptist Health Richmond</option>
+            <option>Other (fill in below)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>If “Other”, specify</label>
+          <input id="sendingOther" placeholder="Type sending facility…" />
+        </div>
+
+        <div class="field">
+          <label>Sending RN / Contact</label>
+          <input id="contact" placeholder="Name / title" />
+        </div>
+
+        <div class="field">
+          <label>Callback Number</label>
+          <input id="callback" placeholder="###-###-####" />
+        </div>
+
+        <div class="field small">
+          <label>Response Priority</label>
+          <div class="row" id="priorityGroup">
+            <label class="pill active"><input type="radio" name="priority" value="Emergent" checked>Emergent</label>
+            <label class="pill"><input type="radio" name="priority" value="Non-emergent">Non-emergent</label>
+          </div>
+        </div>
+
+        <div class="field small">
+          <label>Bed / Unit</label>
+          <input id="bedUnit" placeholder="ED 12 / ICU 3 / etc" />
+        </div>
+
+        <div class="field small">
+          <label>Patient Age</label>
+          <input id="age" inputmode="numeric" placeholder="e.g., 67" />
+        </div>
+
+        <div class="field small">
+          <label>Sex</label>
+          <select id="sex">
+            <option value="">—</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other/Unknown</option>
+          </select>
+        </div>
+
+        <div class="field small">
+          <label>Weight (kg)</label>
+          <input id="weight" inputmode="decimal" placeholder="e.g., 105" />
+        </div>
+
+        <div class="field full">
+          <label>Medical Diagnosis</label>
+          <input id="dx" placeholder="Primary diagnosis / working diagnosis" />
+        </div>
+
+        <div class="field full">
+          <label>Reason for Transfer</label>
+          <select id="transferReason">
+            <option value="">Select…</option>
+            <option>ICU bed not available</option>
+            <option>Specialist/Surgeon not available</option>
+            <option>Higher level of care required</option>
+            <option>Diagnostic capability not available (CT/MRI/Cath)</option>
+            <option>Facility diversion / capacity issue</option>
+            <option>Patient/family request</option>
+            <option>Transport home/hospice</option>
+            <option>Other (type below)</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>If “Other”, specify</label>
+          <input id="transferReasonOther" placeholder="Type reason…" />
+        </div>
+
+        <div class="field full">
+          <label>Interventions Needed En Route (select all)</label>
+          <div class="row" id="interventions">
+            <label class="pill"><input type="checkbox" value="Oxygen">Oxygen</label>
+            <label class="pill"><input type="checkbox" value="Basic monitoring">Basic monitoring</label>
+            <label class="pill"><input type="checkbox" value="Advanced monitoring (cardiac)">Advanced monitoring (cardiac)</label>
+            <label class="pill"><input type="checkbox" value="Orthopedic device">Orthopedic device</label>
+            <label class="pill"><input type="checkbox" value="IV medications">IV medications</label>
+            <label class="pill"><input type="checkbox" value="Fluids">Fluids</label>
+            <label class="pill"><input type="checkbox" value="Seizure precautions">Seizure precautions</label>
+            <label class="pill"><input type="checkbox" value="CPAP (BiPAP)">CPAP (BiPAP)</label>
+            <label class="pill"><input type="checkbox" value="Advanced Airway (Ventilated)">Advanced Airway (Ventilated)</label>
+            <label class="pill"><input type="checkbox" value="Blood products">Blood products</label>
+          </div>
+          <div class="hint">ALS triggers on anything except <strong>Oxygen</strong>, <strong>Basic monitoring</strong>, and <strong>Orthopedic device</strong>.</div>
+        </div>
+
+        <div class="field full">
+          <label>Destination</label>
+          <input id="destination" placeholder="Receiving hospital + unit (e.g., UK Chandler ICU)" />
+        </div>
+
+        <div class="field full">
+          <label>Isolation / Special Notes (optional)</label>
+          <input id="isolation" placeholder="Contact/droplet, restraints, bariatric, vent settings, etc." />
+        </div>
+
+        <div class="field full">
+          <label>Additional Notes (optional)</label>
+          <textarea id="notes" placeholder="Anything else dispatch needs to know (equipment, escorts, ETA requirements, etc.)"></textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="buildBtn" type="button">Build CAD Summary</button>
+        <button class="danger" id="clearBtn" type="button">Clear</button>
+        <span class="hint" id="status"></span>
+      </div>
+    </section>
+
+    <aside class="card">
+      <div class="section-title">
+        <h2 style="margin:0;font-size:16px;">CAD Copy Text</h2>
+        <div class="right-actions">
+          <span class="badge">Ready: <strong id="readyState" class="warn">No</strong></span>
+          <!-- ✅ New right-side copy button -->
+          <button id="copyRightBtn" class="primary" type="button">Copy</button>
+        </div>
+      </div>
+
+      <textarea id="output" class="mono" placeholder="Click “Build CAD Summary” to generate…"></textarea>
+      <div class="hint">Tip: You can paste this directly into CAD comments.</div>
+    </aside>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function setNow() {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      const stamp = `${pad(d.getMonth()+1)}/${pad(d.getDate())}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      $("callTime").textContent = stamp;
+    }
+
+    function getPriority() {
+      const checked = document.querySelector('input[name="priority"]:checked');
+      return checked ? checked.value : "";
+    }
+
+    function selectedInterventions() {
+      const checks = [...document.querySelectorAll('#interventions input[type="checkbox"]')];
+      return checks.filter(c => c.checked).map(c => c.value);
+    }
+
+    // ALS triggers on anything EXCEPT: Oxygen, Basic monitoring, Orthopedic device
+    const BLS_ONLY = new Set(["Oxygen", "Basic monitoring", "Orthopedic device"]);
+
+    function computeLOC(interventions) {
+      if (!interventions.length) return "BLS";
+      return interventions.some(x => !BLS_ONLY.has(x)) ? "ALS" : "BLS";
+    }
+
+    function sendingFacilityText() {
+      const base = $("sendingFacility").value.trim();
+      const other = $("sendingOther").value.trim();
+      if (base === "Other (fill in below)") return other || "Other";
+      return base || "";
+    }
+
+    function reasonText() {
+      const base = $("transferReason").value.trim();
+      const other = $("transferReasonOther").value.trim();
+      if (base === "Other (type below)") return other || "Other";
+      return base || "";
+    }
+
+    function updatePills() {
+      document.querySelectorAll(".pill").forEach(p => {
+        const input = p.querySelector("input");
+        if (!input) return;
+        p.classList.toggle("active", input.checked);
+      });
+
+      if ($("sendingFacility").value !== "Other (fill in below)") $("sendingOther").value = "";
+      if ($("transferReason").value !== "Other (type below)") $("transferReasonOther").value = "";
+    }
+
+    function buildSummary() {
+      const priority = getPriority();
+      const dx = $("dx").value.trim();
+      const reason = reasonText();
+      const interventions = selectedInterventions();
+      const loc = computeLOC(interventions);
+
+      const sending = sendingFacilityText();
+      const bedUnit = $("bedUnit").value.trim();
+      const destination = $("destination").value.trim();
+
+      const age = $("age").value.trim();
+      const sex = $("sex").value.trim();
+      const weight = $("weight").value.trim();
+
+      const contact = $("contact").value.trim();
+      const callback = $("callback").value.trim();
+      const isolation = $("isolation").value.trim();
+      const notes = $("notes").value.trim();
+
+      const missing = [];
+      if (!sending) missing.push("Sending facility");
+      if (!destination) missing.push("Destination");
+      if (!dx) missing.push("Diagnosis");
+
+      const parts = [];
+      parts.push(`${priority.toUpperCase()} HOSPITAL TRANSFER | ${loc}`);
+      if (sending) parts.push(`FROM: ${sending}${bedUnit ? ` (${bedUnit})` : ""}`);
+      if (destination) parts.push(`TO: ${destination}`);
+      if (dx) parts.push(`DX: ${dx}`);
+      if (reason) parts.push(`REASON: ${reason}`);
+
+      const ptBits = [];
+      if (age) ptBits.push(`${age} y/o`);
+      if (sex) ptBits.push(sex);
+      if (weight) ptBits.push(`${weight} kg`);
+      if (ptBits.length) parts.push(`PT: ${ptBits.join(" / ")}`);
+
+      if (interventions.length) parts.push(`NEEDS: ${interventions.join(", ")}`);
+
+      const commBits = [];
+      if (contact) commBits.push(`Contact: ${contact}`);
+      if (callback) commBits.push(`Callback: ${callback}`);
+      if (commBits.length) parts.push(commBits.join(" | "));
+
+      if (isolation) parts.push(`ISO/NOTES: ${isolation}`);
+      if (notes) parts.push(`DISP NOTES: ${notes}`);
+
+      $("output").value = parts.join("\n");
+
+      $("readyState").textContent = "Yes";
+      $("readyState").className = "ok";
+
+      if (missing.length) {
+        $("status").textContent = `Missing (recommended): ${missing.join(", ")}.`;
+        $("status").className = "hint warn";
+      } else {
+        $("status").textContent = "Summary built.";
+        $("status").className = "hint ok";
+      }
+    }
+
+    async function copyOutput() {
+      const text = $("output").value;
+      if (!text.trim()) {
+        $("status").textContent = "Nothing to copy — build the summary first.";
+        $("status").className = "hint err";
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        $("status").textContent = "Copied to clipboard.";
+        $("status").className = "hint ok";
+      } catch (e) {
+        $("output").focus();
+        $("output").select();
+        const ok = document.execCommand("copy");
+        $("status").textContent = ok ? "Copied to clipboard." : "Copy failed (browser blocked clipboard). Select text and copy manually.";
+        $("status").className = ok ? "hint ok" : "hint err";
+      }
+    }
+
+    function clearAll() {
+      document.querySelectorAll("input, select, textarea").forEach(el => {
+        if (el.type === "radio") return;
+        if (el.id === "output") return;
+        if (el.type === "checkbox") el.checked = false;
+        else el.value = "";
+      });
+
+      document.querySelectorAll('input[name="priority"]').forEach(r => r.checked = (r.value === "Emergent"));
+      $("sendingFacility").value = "";
+      $("sendingOther").value = "";
+      $("output").value = "";
+
+      $("readyState").textContent = "No";
+      $("readyState").className = "warn";
+      $("status").textContent = "Cleared.";
+      $("status").className = "hint";
+
+      updatePills();
+    }
+
+    // Wire up
+    setNow();
+    setInterval(setNow, 30_000);
+
+    $("buildBtn").addEventListener("click", buildSummary);
+    $("clearBtn").addEventListener("click", clearAll);
+
+    // ✅ Both copy buttons copy output
+    $("copyRightBtn").addEventListener("click", copyOutput);
+
+    // ✅ Clicking pills toggles inputs + highlights
+    document.addEventListener("click", (e) => {
+      const pill = e.target.closest(".pill");
+      if (!pill) return;
+      const input = pill.querySelector("input");
+      if (!input) return;
+
+      e.preventDefault();
+
+      if (input.type === "checkbox") input.checked = !input.checked;
+      else if (input.type === "radio") input.checked = true;
+
+      updatePills();
+    });
+
+    document.addEventListener("change", (e) => {
+      if (e.target.matches("#transferReason, #sendingFacility, #sex")) updatePills();
+    });
+
+    updatePills();
+  </script>
+</body>
+</html>

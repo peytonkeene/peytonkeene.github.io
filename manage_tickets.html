@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Support Tickets - MedNarrate</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            flex-direction: column;
+        }
+
+        header img {
+            height: 120px;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Main content styling */
+        main {
+            flex: 1;
+            padding: 50px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #333;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Ticket table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Transparent logo behind the content */
+        .background-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            opacity: 0.05;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #333;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 14px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #cccccc;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            header {
+                height: auto;
+            }
+
+            header img {
+                height: 100px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .content {
+                font-size: 18px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+                height: auto;
+            }
+
+            header img {
+                height: 80px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .content {
+                font-size: 16px;
+            }
+
+            .background-logo {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with logo and navigation -->
+    <header>
+        <a href="dashboard.html">
+            <img src="images/logo.png" alt="MedNarrate Logo">
+        </a>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="logout.php">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <main>
+        <!-- Background logo behind the content -->
+        <img src="images/logo.png" alt="MedNarrate Background Logo" class="background-logo">
+        
+        <!-- Ticket management content -->
+        <div class="content">
+            <h1>Manage Support Tickets</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example ticket row -->
+                    <tr>
+                        <td>#1234</td>
+                        <td>John Doe</td>
+                        <td>johndoe@example.com</td>
+                        <td>Issue with Login</td>
+                        <td>High</td>
+                        <td>Open</td>
+                        <td class="action-buttons">
+                            <button>Close Ticket</button>
+                            <button>Add Comment</button>
+                        </td>
+                    </tr>
+                    <!-- More rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer with privacy policy and terms of service -->
+    <footer>
+        <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | &copy; 2024 MedNarrate. All rights reserved.
+    </footer>
+</body>
+</html>
