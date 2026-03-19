@@ -1,15 +1,6 @@
-<?php
-
-declare(strict_types=1);
-
-require_once __DIR__ . '/../includes/bootstrap.php';
-require_auth();
-
-$activePage = 'admin';
-$pageTitle = 'Admin';
-require __DIR__ . '/../includes/head.php';
-require __DIR__ . '/../includes/app-shell-start.php';
-$title = 'Administration';
-$message = 'Admin tools will be implemented here, including user management and organization-level settings.';
-require __DIR__ . '/../pages/placeholder.php';
-require __DIR__ . '/../includes/app-shell-end.php';
+<?php $pageTitle = 'Admin'; include __DIR__ . '/../includes/app_shell_start.php'; ?>
+<article class="card info-card">
+    <h3>Admin Tools</h3>
+    <p>Agency-level administration tools and controls will be managed here.</p>
+</article>
+<?php include __DIR__ . '/../includes/app_shell_end.php'; ?>

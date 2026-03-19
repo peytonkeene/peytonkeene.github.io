@@ -1,15 +1,6 @@
-<?php
-
-declare(strict_types=1);
-
-require_once __DIR__ . '/../includes/bootstrap.php';
-require_auth();
-
-$activePage = 'reports';
-$pageTitle = 'Reports';
-require __DIR__ . '/../includes/head.php';
-require __DIR__ . '/../includes/app-shell-start.php';
-$title = 'Reporting';
-$message = 'Reporting modules will be added here for QA trends, staffing insights, and documentation analytics.';
-require __DIR__ . '/../pages/placeholder.php';
-require __DIR__ . '/../includes/app-shell-end.php';
+<?php $pageTitle = 'Reports'; include __DIR__ . '/../includes/app_shell_start.php'; ?>
+<article class="card info-card">
+    <h3>Reports Workspace</h3>
+    <p>Reporting tools and exports will appear here as modules are added.</p>
+</article>
+<?php include __DIR__ . '/../includes/app_shell_end.php'; ?>
