@@ -9,26 +9,49 @@ include __DIR__ . '/includes/head.php';
 $error = $_SESSION['login_error'] ?? null;
 unset($_SESSION['login_error']);
 ?>
-<div class="login-wrap">
+<div class="login-page">
     <div class="card login-card">
-        <h1>MedNarrate</h1>
-        <p>Clinical Documentation Platform</p>
-        <?php if ($error): ?><div class="alert"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>
-        <form method="post" action="/auth/login_process.php">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@agency.org">
+        <aside class="login-image-panel" aria-hidden="true">
+            <!-- ADMIN WILL REPLACE THIS IMAGE URL -->
+            <div class="login-image-overlay"></div>
+            <div class="login-image-content">
+                <h2>MedNarrate</h2>
+                <p>Clinical Documentation Platform</p>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Enter password">
+        </aside>
+
+        <section class="login-form-panel">
+            <div class="login-header">
+                <h1 class="login-title">MedNarrate</h1>
+                <p class="login-subtitle">Clinical Documentation Platform</p>
             </div>
-            <button class="btn btn-primary btn-block" type="submit">Sign In</button>
-        </form>
-        <div class="form-links">
-            <a href="/contact.php">Forgot password</a>
-            <a href="/contact.php">Contact support</a>
-        </div>
+            <div class="login-divider" aria-hidden="true"></div>
+
+            <?php if ($error): ?><div class="alert login-alert"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>
+
+            <form method="post" action="/auth/login_process.php">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" name="email" type="email" required autocomplete="email" placeholder="you@agency.org">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" id="password" name="password" type="password" required autocomplete="current-password" placeholder="Enter password">
+                </div>
+                <button class="btn btn-primary-login btn-block" type="submit">Sign In</button>
+            </form>
+
+            <div class="form-links">
+                <a href="/contact.php">Forgot password</a>
+                <a href="/contact.php">Contact support</a>
+            </div>
+
+            <div class="login-footer-meta">
+                <a href="/contact.php">Need help accessing your account?</a>
+                <p>Powered by MedNarrate</p>
+                <small>MedNarrate &copy; <?php echo date('Y'); ?></small>
+            </div>
+        </section>
     </div>
 </div>
 <script src="/assets/js/app.js"></script>
