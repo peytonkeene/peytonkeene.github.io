@@ -1,6 +1,11 @@
-<?php $pageTitle = 'Admin'; include __DIR__ . '/../includes/app_shell_start.php'; ?>
-<article class="card info-card">
-    <h3>Admin Tools</h3>
-    <p>Agency-level administration tools and controls will be managed here.</p>
-</article>
-<?php include __DIR__ . '/../includes/app_shell_end.php'; ?>
+<?php
+require_once __DIR__ . '/../auth/check_auth.php';
+require_once __DIR__ . '/../auth/role_helpers.php';
+
+if (!is_admin_or_superadmin()) {
+    header('Location: /dashboard.php');
+    exit;
+}
+
+header('Location: /admin/generator-list.php');
+exit;

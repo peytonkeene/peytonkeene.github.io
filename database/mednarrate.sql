@@ -155,3 +155,78 @@ ON DUPLICATE KEY UPDATE
   `name` = VALUES(`name`),
   `description` = VALUES(`description`),
   `is_active` = VALUES(`is_active`);
+
+-- ---------------------------------------------------------
+-- Admin Generator Builder tables (agency-scoped)
+-- ---------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `generators` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `agency_id` BIGINT UNSIGNED NOT NULL,
+  `name` VARCHAR(180) NOT NULL,
+  `slug` VARCHAR(190) NOT NULL,
+  `description` TEXT DEFAULT NULL,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_by_user_id` BIGINT UNSIGNED NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_generators_slug` (`slug`),
+  KEY `idx_generators_agency_id` (`agency_id`),
+  KEY `idx_generators_active` (`is_active`),
+  CONSTRAINT `fk_generators_agency` FOREIGN KEY (`agency_id`) REFERENCES `agencies` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT `fk_generators_created_by` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `generator_sections` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `generator_id` BIGINT UNSIGNED NOT NULL,
+  `section_name` VARCHAR(180) NOT NULL,
+  `section_slug` VARCHAR(190) NOT NULL,
+  `section_order` INT NOT NULL DEFAULT 1,
+  `section_description` TEXT DEFAULT NULL,
+  `is_toggleable` TINYINT(1) NOT NULL DEFAULT 0,
+  `default_open` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_generator_sections_generator_id` (`generator_id`),
+  KEY `idx_generator_sections_order` (`section_order`),
+  CONSTRAINT `fk_generator_sections_generator` FOREIGN KEY (`generator_id`) REFERENCES `generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `generator_fields` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `generator_id` BIGINT UNSIGNED NOT NULL,
+  `section_id` BIGINT UNSIGNED NOT NULL,
+  `field_name` VARCHAR(180) NOT NULL,
+  `field_label` VARCHAR(180) NOT NULL,
+  `field_slug` VARCHAR(190) NOT NULL,
+  `field_type` VARCHAR(80) NOT NULL,
+  `field_order` INT NOT NULL DEFAULT 1,
+  `placeholder_text` VARCHAR(255) DEFAULT NULL,
+  `help_text` VARCHAR(255) DEFAULT NULL,
+  `is_required` TINYINT(1) NOT NULL DEFAULT 0,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `options_json` LONGTEXT DEFAULT NULL,
+  `config_json` LONGTEXT DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_generator_fields_generator_id` (`generator_id`),
+  KEY `idx_generator_fields_section_id` (`section_id`),
+  KEY `idx_generator_fields_order` (`field_order`),
+  CONSTRAINT `fk_generator_fields_generator` FOREIGN KEY (`generator_id`) REFERENCES `generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `fk_generator_fields_section` FOREIGN KEY (`section_id`) REFERENCES `generator_sections` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `generator_templates` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `generator_id` BIGINT UNSIGNED NOT NULL,
+  `template_name` VARCHAR(180) NOT NULL,
+  `template_content` LONGTEXT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_generator_templates_generator_id` (`generator_id`),
+  CONSTRAINT `fk_generator_templates_generator` FOREIGN KEY (`generator_id`) REFERENCES `generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

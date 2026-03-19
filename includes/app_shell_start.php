@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/../auth/check_auth.php'; ?>
+<?php require_once __DIR__ . '/../auth/role_helpers.php'; ?>
 <?php $pageTitle = $pageTitle ?? APP_NAME; include __DIR__ . '/head.php'; ?>
 <div class="app-layout">
     <aside class="sidebar">
@@ -9,7 +10,7 @@
                 <a href="/generators/index.php">Generators</a>
                 <a href="/reports/index.php">Reports</a>
                 <a href="/account/index.php">Account</a>
-                <a href="/admin/index.php">Admin</a>
+                <?php if (is_admin_or_superadmin()): ?><a href="/admin/generator-list.php">Admin</a><?php endif; ?>
             </nav>
         </div>
         <a class="btn btn-outline btn-block" href="/auth/logout.php">Logout</a>
