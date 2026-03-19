@@ -1,12 +1,2 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const sidebar = document.querySelector('.sidebar');
-  const topbar = document.querySelector('.topbar');
-
-  if (!sidebar || !topbar) {
-    return;
-  }
-
-  topbar.addEventListener('dblclick', () => {
-    sidebar.classList.toggle('sidebar-condensed');
-  });
-});
+// Lightweight JavaScript hook point for future interactive modules.
+document.documentElement.classList.add('js-ready');
