@@ -19,6 +19,13 @@
                         <input id="name" name="name" required value="<?php echo htmlspecialchars($formData['name'] ?? ''); ?>" placeholder="e.g., ALS Patient Care Narrative">
                     </div>
                     <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input id="slug" name="slug" value="<?php echo htmlspecialchars($formData['slug'] ?? ''); ?>" placeholder="e.g., als-patient-care-narrative">
+                        <small class="help-text">Optional. Leave blank to auto-generate from the name.</small>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
                         <label for="is_active">Status</label>
                         <select id="is_active" name="is_active">
                             <option value="1" <?php echo (int)($formData['is_active'] ?? 1) === 1 ? 'selected' : ''; ?>>Active</option>
@@ -80,6 +87,6 @@
 </form>
 
 <script>
-window.generatorBuilderInitial = <?php echo json_encode($formData['structure'] ?? []); ?>;
+window.generatorBuilderInitial = <?php echo json_encode($formData['structure'] ?? [], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); ?>;
 </script>
 <script src="/assets/js/generator-builder.js"></script>

@@ -22,7 +22,7 @@ if (!$generator) {
 }
 enforce_generator_access($generator);
 
-$stmt = $pdo->prepare('UPDATE generators SET is_active = :is_active, updated_at = NOW() WHERE id = :id');
+$stmt = $pdo->prepare('UPDATE narrative_generators SET is_active = :is_active, updated_at = NOW() WHERE id = :id');
 $stmt->execute([
     ':is_active' => $isActive,
     ':id' => $generatorId,

@@ -56,16 +56,22 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- ---------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `narrative_generators` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `agency_id` BIGINT UNSIGNED NOT NULL,
   `name` VARCHAR(150) NOT NULL,
   `slug` VARCHAR(150) NOT NULL,
   `description` TEXT DEFAULT NULL,
   `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_by_user_id` BIGINT UNSIGNED DEFAULT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_narrative_generators_slug` (`slug`),
+  KEY `idx_narrative_generators_agency_id` (`agency_id`),
+  KEY `idx_narrative_generators_created_by` (`created_by_user_id`),
   KEY `idx_narrative_generators_active` (`is_active`),
-  KEY `idx_narrative_generators_name` (`name`)
+  KEY `idx_narrative_generators_name` (`name`),
+  CONSTRAINT `fk_narrative_generators_agency` FOREIGN KEY (`agency_id`) REFERENCES `agencies` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT `fk_narrative_generators_created_by` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------
@@ -147,35 +153,20 @@ INSERT INTO `users` (
   `is_active` = VALUES(`is_active`);
 
 -- Sample narrative generators
-INSERT INTO `narrative_generators` (`id`, `name`, `slug`, `description`, `is_active`) VALUES
-  (1, 'EMS Narrative Generator', 'ems-narrative-generator', 'Generates a structured EMS patient care narrative.', 1),
-  (2, 'Trauma Report Generator', 'trauma-report-generator', 'Builds trauma-focused narrative reports.', 1),
-  (3, 'Incident Summary Generator', 'incident-summary-generator', 'Creates concise incident summary narratives for review.', 1)
+INSERT INTO `narrative_generators` (`id`, `agency_id`, `name`, `slug`, `description`, `is_active`, `created_by_user_id`) VALUES
+  (1, 1, 'EMS Narrative Generator', 'ems-narrative-generator', 'Generates a structured EMS patient care narrative.', 1, 1),
+  (2, 1, 'Trauma Report Generator', 'trauma-report-generator', 'Builds trauma-focused narrative reports.', 1, 1),
+  (3, 1, 'Incident Summary Generator', 'incident-summary-generator', 'Creates concise incident summary narratives for review.', 1, 1)
 ON DUPLICATE KEY UPDATE
+  `agency_id` = VALUES(`agency_id`),
   `name` = VALUES(`name`),
   `description` = VALUES(`description`),
-  `is_active` = VALUES(`is_active`);
+  `is_active` = VALUES(`is_active`),
+  `created_by_user_id` = VALUES(`created_by_user_id`);
 
 -- ---------------------------------------------------------
--- Admin Generator Builder tables (agency-scoped)
+-- Admin Generator Builder tables
 -- ---------------------------------------------------------
-CREATE TABLE IF NOT EXISTS `generators` (
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `agency_id` BIGINT UNSIGNED NOT NULL,
-  `name` VARCHAR(180) NOT NULL,
-  `slug` VARCHAR(190) NOT NULL,
-  `description` TEXT DEFAULT NULL,
-  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
-  `created_by_user_id` BIGINT UNSIGNED NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_generators_slug` (`slug`),
-  KEY `idx_generators_agency_id` (`agency_id`),
-  KEY `idx_generators_active` (`is_active`),
-  CONSTRAINT `fk_generators_agency` FOREIGN KEY (`agency_id`) REFERENCES `agencies` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_generators_created_by` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `generator_sections` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -191,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `generator_sections` (
   PRIMARY KEY (`id`),
   KEY `idx_generator_sections_generator_id` (`generator_id`),
   KEY `idx_generator_sections_order` (`section_order`),
-  CONSTRAINT `fk_generator_sections_generator` FOREIGN KEY (`generator_id`) REFERENCES `generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+  CONSTRAINT `fk_generator_sections_generator` FOREIGN KEY (`generator_id`) REFERENCES `narrative_generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `generator_fields` (
@@ -215,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `generator_fields` (
   KEY `idx_generator_fields_generator_id` (`generator_id`),
   KEY `idx_generator_fields_section_id` (`section_id`),
   KEY `idx_generator_fields_order` (`field_order`),
-  CONSTRAINT `fk_generator_fields_generator` FOREIGN KEY (`generator_id`) REFERENCES `generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `fk_generator_fields_generator` FOREIGN KEY (`generator_id`) REFERENCES `narrative_generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `fk_generator_fields_section` FOREIGN KEY (`section_id`) REFERENCES `generator_sections` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -228,5 +219,5 @@ CREATE TABLE IF NOT EXISTS `generator_templates` (
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_generator_templates_generator_id` (`generator_id`),
-  CONSTRAINT `fk_generator_templates_generator` FOREIGN KEY (`generator_id`) REFERENCES `generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+  CONSTRAINT `fk_generator_templates_generator` FOREIGN KEY (`generator_id`) REFERENCES `narrative_generators` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
