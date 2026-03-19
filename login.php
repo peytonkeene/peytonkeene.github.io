@@ -46,8 +46,6 @@ unset($_SESSION['login_error']);
                 <a href="/contact.php">Contact support</a>
             </div>
 
-            <a class="return-home-link" href="/">Return to Home</a>
-
             <div class="login-footer-meta">
                 <a href="/contact.php">Need help accessing your account?</a>
                 <p>Powered by MedNarrate</p>
