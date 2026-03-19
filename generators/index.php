@@ -3,16 +3,22 @@ require_once __DIR__ . '/../auth/check_auth.php';
 require_once __DIR__ . '/../auth/role_helpers.php';
 require_once __DIR__ . '/../includes/db.php';
 
+if (!function_exists('agency_scope_sql')) {
+    http_response_code(500);
+    echo 'Configuration error: agency scoping is unavailable.';
+    exit;
+}
+
 $pdo = db();
 $scope = agency_scope_sql('g.agency_id');
 $sql = 'SELECT g.*, a.name AS agency_name
-    FROM generators g
+    FROM narrative_generators g
     LEFT JOIN agencies a ON a.id = g.agency_id
     WHERE g.is_active = 1 AND ' . $scope['sql'] . '
     ORDER BY g.name ASC';
 $stmt = $pdo->prepare($sql);
 $stmt->execute($scope['params']);
-$generators = $stmt->fetchAll();
+$generators = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $pageTitle = 'Generators';
 include __DIR__ . '/../includes/app_shell_start.php';
@@ -30,7 +36,7 @@ include __DIR__ . '/../includes/app_shell_start.php';
             <h3><?php echo htmlspecialchars($generator['name']); ?></h3>
             <p><?php echo htmlspecialchars((string)($generator['description'] ?? 'No description provided.')); ?></p>
             <div class="generator-meta">Agency: <?php echo htmlspecialchars((string)($generator['agency_name'] ?? 'Unassigned')); ?></div>
-            <a class="btn btn-primary btn-sm" href="/generators/view.php?slug=<?php echo urlencode($generator['slug']); ?>">Open Generator</a>
+            <a class="btn btn-primary btn-sm" href="/generators/view.php?slug=<?php echo urlencode((string)($generator['slug'] ?? '')); ?>">Open Generator</a>
         </article>
     <?php endforeach; ?>
 </div>

@@ -6,10 +6,11 @@ $scope = agency_scope_sql('id');
 $agencySql = 'SELECT id, name FROM agencies WHERE is_active = 1 AND ' . (is_superadmin() ? '1=1' : 'id = :agency_id') . ' ORDER BY name ASC';
 $agencyStmt = $pdo->prepare($agencySql);
 $agencyStmt->execute($scope['params']);
-$agencies = $agencyStmt->fetchAll();
+$agencies = $agencyStmt->fetchAll(PDO::FETCH_ASSOC);
 
 $formData = [
     'name' => '',
+    'slug' => '',
     'description' => '',
     'is_active' => 1,
     'agency_id' => current_user_agency_id(),

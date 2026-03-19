@@ -22,6 +22,7 @@ if (!$existing) {
 enforce_generator_access($existing);
 
 $name = trim((string)($_POST['name'] ?? ''));
+$slugInput = trim((string)($_POST['slug'] ?? ''));
 $description = trim((string)($_POST['description'] ?? ''));
 $isActive = (int)($_POST['is_active'] ?? 0) === 1 ? 1 : 0;
 $agencyId = is_superadmin() ? (int)($_POST['agency_id'] ?? 0) : (int)current_user_agency_id();
@@ -33,11 +34,12 @@ if ($name === '' || $agencyId < 1 || !is_array($structure)) {
     exit;
 }
 
-$slug = unique_generator_slug($pdo, $name, $generatorId);
+$slugSeed = $slugInput !== '' ? $slugInput : $name;
+$slug = unique_generator_slug($pdo, $slugSeed, $generatorId);
 
 $pdo->beginTransaction();
 try {
-    $updateGenerator = $pdo->prepare('UPDATE generators
+    $updateGenerator = $pdo->prepare('UPDATE narrative_generators
         SET agency_id = :agency_id, name = :name, slug = :slug, description = :description, is_active = :is_active, updated_at = NOW()
         WHERE id = :id');
     $updateGenerator->execute([
@@ -100,7 +102,13 @@ try {
     $pdo->commit();
 } catch (Throwable $e) {
     $pdo->rollBack();
-    throw $e;
+    if (ini_get('display_errors')) {
+        http_response_code(500);
+        echo 'Unable to update generator: ' . htmlspecialchars($e->getMessage());
+        exit;
+    }
+    header('Location: /admin/generator-edit.php?id=' . $generatorId);
+    exit;
 }
 
 header('Location: /admin/generator-list.php');

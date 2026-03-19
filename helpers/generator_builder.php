@@ -16,7 +16,7 @@ function unique_generator_slug(PDO $pdo, string $name, ?int $excludeId = null): 
     $counter = 1;
 
     while (true) {
-        $sql = 'SELECT id FROM generators WHERE slug = :slug';
+        $sql = 'SELECT id FROM narrative_generators WHERE slug = :slug';
         if ($excludeId) {
             $sql .= ' AND id != :exclude_id';
         }
@@ -95,12 +95,12 @@ function sanitize_field_rows(array $fields, int $sectionId, int $generatorId): a
 function get_generator_with_structure(PDO $pdo, int $generatorId): ?array
 {
     $stmt = $pdo->prepare('SELECT g.*, a.name AS agency_name, CONCAT(u.first_name, " ", u.last_name) AS created_by_name
-        FROM generators g
+        FROM narrative_generators g
         LEFT JOIN agencies a ON a.id = g.agency_id
         LEFT JOIN users u ON u.id = g.created_by_user_id
         WHERE g.id = :id LIMIT 1');
     $stmt->execute([':id' => $generatorId]);
-    $generator = $stmt->fetch();
+    $generator = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$generator) {
         return null;
@@ -108,15 +108,15 @@ function get_generator_with_structure(PDO $pdo, int $generatorId): ?array
 
     $sectionStmt = $pdo->prepare('SELECT * FROM generator_sections WHERE generator_id = :id ORDER BY section_order ASC, id ASC');
     $sectionStmt->execute([':id' => $generatorId]);
-    $sections = $sectionStmt->fetchAll();
+    $sections = $sectionStmt->fetchAll(PDO::FETCH_ASSOC);
 
     $fieldStmt = $pdo->prepare('SELECT * FROM generator_fields WHERE generator_id = :id AND is_active = 1 ORDER BY field_order ASC, id ASC');
     $fieldStmt->execute([':id' => $generatorId]);
-    $fields = $fieldStmt->fetchAll();
+    $fields = $fieldStmt->fetchAll(PDO::FETCH_ASSOC);
 
     $templateStmt = $pdo->prepare('SELECT * FROM generator_templates WHERE generator_id = :id ORDER BY id DESC LIMIT 1');
     $templateStmt->execute([':id' => $generatorId]);
-    $template = $templateStmt->fetch();
+    $template = $templateStmt->fetch(PDO::FETCH_ASSOC);
 
     $bySection = [];
     foreach ($fields as $field) {

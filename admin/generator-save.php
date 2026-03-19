@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $pdo = db();
 $user = current_user();
 $name = trim((string)($_POST['name'] ?? ''));
+$slugInput = trim((string)($_POST['slug'] ?? ''));
 $description = trim((string)($_POST['description'] ?? ''));
 $isActive = (int)($_POST['is_active'] ?? 0) === 1 ? 1 : 0;
 $agencyId = is_superadmin() ? (int)($_POST['agency_id'] ?? 0) : (int)current_user_agency_id();
@@ -20,11 +21,12 @@ if ($name === '' || $agencyId < 1 || !is_array($structure)) {
     exit;
 }
 
-$slug = unique_generator_slug($pdo, $name);
+$slugSeed = $slugInput !== '' ? $slugInput : $name;
+$slug = unique_generator_slug($pdo, $slugSeed);
 
 $pdo->beginTransaction();
 try {
-    $insertGenerator = $pdo->prepare('INSERT INTO generators (agency_id, name, slug, description, is_active, created_by_user_id, created_at, updated_at)
+    $insertGenerator = $pdo->prepare('INSERT INTO narrative_generators (agency_id, name, slug, description, is_active, created_by_user_id, created_at, updated_at)
         VALUES (:agency_id, :name, :slug, :description, :is_active, :created_by_user_id, NOW(), NOW())');
     $insertGenerator->execute([
         ':agency_id' => $agencyId,
@@ -32,7 +34,7 @@ try {
         ':slug' => $slug,
         ':description' => $description,
         ':is_active' => $isActive,
-        ':created_by_user_id' => (int)($user['id'] ?? 0),
+        ':created_by_user_id' => isset($user['id']) ? (int)$user['id'] : null,
     ]);
 
     $generatorId = (int)$pdo->lastInsertId();
@@ -85,7 +87,13 @@ try {
     $pdo->commit();
 } catch (Throwable $e) {
     $pdo->rollBack();
-    throw $e;
+    if (ini_get('display_errors')) {
+        http_response_code(500);
+        echo 'Unable to save generator: ' . htmlspecialchars($e->getMessage());
+        exit;
+    }
+    header('Location: /admin/generator-builder.php');
+    exit;
 }
 
 header('Location: /admin/generator-list.php');

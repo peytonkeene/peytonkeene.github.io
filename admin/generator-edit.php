@@ -21,11 +21,12 @@ $scope = agency_scope_sql('id');
 $agencySql = 'SELECT id, name FROM agencies WHERE is_active = 1 AND ' . (is_superadmin() ? '1=1' : 'id = :agency_id') . ' ORDER BY name ASC';
 $agencyStmt = $pdo->prepare($agencySql);
 $agencyStmt->execute($scope['params']);
-$agencies = $agencyStmt->fetchAll();
+$agencies = $agencyStmt->fetchAll(PDO::FETCH_ASSOC);
 
 $formData = [
     'id' => $generator['id'],
     'name' => $generator['name'],
+    'slug' => $generator['slug'] ?? '',
     'description' => $generator['description'],
     'is_active' => $generator['is_active'],
     'agency_id' => $generator['agency_id'],
